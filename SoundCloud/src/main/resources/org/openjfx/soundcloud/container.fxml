@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="720.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.MP3Controller">
+   <children>
+      <AnchorPane layoutX="-8.0" layoutY="498.0" prefHeight="142.0" prefWidth="727.0" style="-fx-background-color: BLACK;" />
+   </children>
+</AnchorPane>
