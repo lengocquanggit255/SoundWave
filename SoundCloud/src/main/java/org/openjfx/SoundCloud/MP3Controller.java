@@ -6,32 +6,26 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 public class MP3Controller implements Initializable {
 
     @FXML
-    private Pane pane;
-    @FXML
     private Label songLabel;
     @FXML
-    private Button playButton, resetButton, previousButton, nextButton;
-    @FXML
-    private ComboBox<String> speedBox;
+    private Button playButton, previousButton, nextButton;
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -48,7 +42,6 @@ public class MP3Controller implements Initializable {
     private ArrayList<File> songs;
 
     private int songNumber;
-    private int[] speeds = { 25, 50, 75, 100, 125, 150, 175, 200 };
 
     private Timer timer;
     private TimerTask task;
@@ -78,13 +71,6 @@ public class MP3Controller implements Initializable {
 
         songLabel.setText(songs.get(songNumber).getName());
 
-        for (int i = 0; i < speeds.length; i++) {
-
-            speedBox.getItems().add(Integer.toString(speeds[i]) + "%");
-        }
-
-        speedBox.setOnAction(this::changeSpeed);
-
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
             @Override
@@ -107,22 +93,17 @@ public class MP3Controller implements Initializable {
 
     public void playMedia() {
         beginTimer();
-        changeSpeed(null);
         mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
         mediaPlayer.play();
-        playButton.setText("Pause");
+        playButtonImageView.setImage(new Image(
+                "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/pauseButton.png"));
     }
 
     public void pauseMedia() {
         cancelTimer();
         mediaPlayer.pause();
-        playButton.setText("Play");
-    }
-
-    public void resetMedia() {
-
-        songProgressBar.setProgress(0);
-        mediaPlayer.seek(Duration.seconds(0));
+        playButtonImageView.setImage(new Image(
+                "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playButton.png"));
     }
 
     public void previousMedia() {
@@ -198,18 +179,6 @@ public class MP3Controller implements Initializable {
         }
     }
 
-    public void changeSpeed(ActionEvent event) {
-
-        if (speedBox.getValue() == null) {
-
-            mediaPlayer.setRate(1);
-        } else {
-
-            // mediaPlayer.setRate(Integer.parseInt(speedBox.getValue()) * 0.01);
-            mediaPlayer.setRate(
-                    Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01);
-        }
-    }
 
     public void beginTimer() {
 
