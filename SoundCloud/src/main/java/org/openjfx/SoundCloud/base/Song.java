@@ -3,7 +3,7 @@ package org.openjfx.SoundCloud.base;
 import java.util.Date;
 import java.util.List;
 
-class Song {
+public class Song {
     private int songID;
     private int length;
     private List<String> genres;

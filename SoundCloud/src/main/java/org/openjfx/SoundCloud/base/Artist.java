@@ -1,18 +1,17 @@
 package org.openjfx.SoundCloud.base;
 
 import java.util.Date;
-import java.util.List;
 
-class Artist {
+public class Artist {
     private int artistID;
-    private List<String> names;
+    private String names;
     private String description;
     private String managementCompany;
     private Date birthDate;
 
     // Constructors, getters, and setters
 
-    public Artist(int artistID, List<String> names, String description, String managementCompany, Date birthDate) {
+    public Artist(int artistID, String names, String description, String managementCompany, Date birthDate) {
         this.artistID = artistID;
         this.names = names;
         this.description = description;
@@ -28,11 +27,11 @@ class Artist {
         this.artistID = artistID;
     }
 
-    public List<String> getNames() {
+    public String getNames() {
         return names;
     }
 
-    public void setNames(List<String> names) {
+    public void setNames(String names) {
         this.names = names;
     }
 

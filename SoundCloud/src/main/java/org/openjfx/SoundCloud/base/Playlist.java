@@ -2,7 +2,7 @@ package org.openjfx.SoundCloud.base;
 
 import java.util.List;
 
-class Playlist {
+public class Playlist {
     private int playlistID;
     private String name;
     private int numberOfSongs;
