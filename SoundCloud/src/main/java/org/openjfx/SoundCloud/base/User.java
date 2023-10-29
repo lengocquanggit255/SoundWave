@@ -1,5 +1,6 @@
 package org.openjfx.SoundCloud.base;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openjfx.SoundCloud.Helper;
@@ -7,18 +8,16 @@ import org.openjfx.SoundCloud.Helper;
 public class User {
     private int userID;
     private String username;
-    private String password;
-    private String email;
     private List<Playlist> playlists;
 
-    // Constructors, getters, and setters
+    public User() {
+        playlists = new ArrayList<Playlist>();
+    }
 
-    public User(int userID, String username, String password, String email) {
+    public User(int userID, String username) {
         this.userID = userID;
         this.username = username;
-        this.password = password;
-        this.email = email;
-       // playlists = Helper.
+        playlists = Helper.getPlaylistByUserID(userID);
     }
 
     public int getUserID() {
@@ -35,21 +34,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

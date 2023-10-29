@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="142.0" prefWidth="729.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.MP3Controller">
+<AnchorPane prefHeight="142.0" prefWidth="720.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.MP3Controller">
    <children>
-      <Label fx:id="songLabel" alignment="CENTER" layoutY="-1.0" prefHeight="60.0" prefWidth="729.0" text="MP3 Player" textFill="#00ff1a">
+      <Label fx:id="songLabel" alignment="CENTER" layoutY="-1.0" prefHeight="60.0" prefWidth="720.0" text="MP3 Player" textFill="#00ff1a">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="songProgressBar" layoutX="5.0" layoutY="55.0" prefHeight="10.0" prefWidth="720.0" progress="0.0" style="-fx-accent: BLACK;" />
+      <ProgressBar fx:id="songProgressBar" layoutY="55.0" prefHeight="10.0" prefWidth="720.0" progress="0.0" style="-fx-accent: BLACK;" />
       <Button fx:id="playButton" layoutX="347.0" layoutY="93.0" mnemonicParsing="false" onAction="#playButtonClicked" prefHeight="40.0" prefWidth="15.0">
          <font>
             <Font size="14.0" />

@@ -8,20 +8,128 @@ import java.util.List;
 import org.openjfx.SoundCloud.base.Artist;
 import org.openjfx.SoundCloud.base.Playlist;
 import org.openjfx.SoundCloud.base.Song;
+import org.openjfx.SoundCloud.base.User;
 
 public class Helper {
 
     private static String url = "jdbc:mysql://localhost:3307/music_application?useSSL=false";
     private static String username = "root";
     private static String password = "";
-    private Connection connection;
+    private static Connection connection;
 
-    // Constructor
-    public Helper() throws SQLException {
-        connection = DriverManager.getConnection(url, username, password);
+    static {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Song getSongByID(int songID) throws SQLException {
+    public static User getUserByID(int userID) {
+        User user = null;
+
+        String query = "SELECT username, email FROM Users WHERE userID = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, userID);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String username = resultSet.getString("username");
+                user = new User(userID, username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return user;
+    }
+
+    public static int getUserIdFromEmail(String email) {
+        int userId = -1; // Default value if no matching user is found
+
+        String query = "SELECT * FROM Users WHERE email = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                userId = resultSet.getInt("userID");
+                System.out.println("User ID: " + userId);
+            } else {
+                System.out.println("No user found with the given email.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return userId;
+    }
+
+    public static boolean checkPassword(String email, String inputPassword) {
+        String query = "SELECT * FROM Users WHERE email = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        String correctPassword = "";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                correctPassword = resultSet.getString("password");
+                return inputPassword.equals(correctPassword);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
+    public static Song getSongByID(int songID) throws SQLException {
         String query = "SELECT * FROM Songs WHERE songID = ?";
         Song song = null;
         PreparedStatement statement = null;
@@ -56,7 +164,7 @@ public class Helper {
         }
     }
 
-    private List<String> getGenresForSong(int songID) throws SQLException {
+    private static List<String> getGenresForSong(int songID) throws SQLException {
         String query = "SELECT genre_name FROM Songs_Genres INNER JOIN Genres ON Songs_Genres.genreID = Genres.genreID WHERE songID = ?";
         List<String> genres = new ArrayList<>();
         PreparedStatement statement = null;
@@ -83,7 +191,7 @@ public class Helper {
         }
     }
 
-    private List<Artist> getArtistsForSong(int songID) throws SQLException {
+    private static List<Artist> getArtistsForSong(int songID) throws SQLException {
         String query = "SELECT * FROM Songs_Artists INNER JOIN Artists ON Songs_Artists.artistID = Artists.artistID WHERE songID = ?";
         List<Artist> artists = new ArrayList<>();
         PreparedStatement statement = null;
@@ -116,7 +224,7 @@ public class Helper {
         }
     }
 
-    public List<Playlist> getPlaylistByUserID(int userID) {
+    public static List<Playlist> getPlaylistByUserID(int userID) {
         String userPlaylistQuery = "SELECT * FROM playlists WHERE userID = ?";
         String playlistSongsQuery = "SELECT s.songID, s.name, s.length_minutes, s.released_date, s.lyrics FROM Song_Playlist sp JOIN Songs s ON sp.songID = s.songID WHERE sp.playlistID = ?";
         PreparedStatement userPlaylistStatement = null;
@@ -176,20 +284,20 @@ public class Helper {
     }
 
     public static void main(String[] args) {
-        try {
-            // Create a Helper instance
-            Helper helper = new Helper();
 
-            // Test reading user playlists and songs
-            int userID = 1; // Set the user ID you want to retrieve playlists for
-            List<Playlist> playlists = helper.getPlaylistByUserID(userID);
+        // Test reading user playlists and songs
+        String email = "john@example.com";
+        String password = "password123";
 
-            for (int i = 0; i < playlists.size(); i++) {
-                System.out.println("Playlist's name: " + playlists.get(i).getName());
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        boolean signInSuccess = checkPassword(email, password);
+        if (signInSuccess) {
+            System.out.println("Sign-in successful!");
+            User user = getUserByID(getUserIdFromEmail(email));
+            System.out.println(user.getUsername());
+        } else {
+            System.out.println("Invalid email or password. Sign-in failed.");
+           
         }
     }
+
 }
