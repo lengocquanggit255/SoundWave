@@ -2,9 +2,11 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.ContainerController">
+<AnchorPane fx:id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="930.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.ContainerController">
    <children>
-      <AnchorPane fx:id="anchorMP3Pane" layoutY="338.0" prefHeight="142.0" prefWidth="720.0" />
-      <AnchorPane fx:id="anchorContentPane" prefHeight="339.0" prefWidth="720.0" />
+      <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="113.0" prefWidth="71.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: WHITE;" />
+      <AnchorPane fx:id="anchorMP3Pane" layoutY="528.0" prefHeight="92.0" prefWidth="930.0" />
+      <AnchorPane fx:id="anchorContentPane" layoutX="85.0" layoutY="6.0" prefHeight="517.0" prefWidth="839.0" style="-fx-background-radius: 20px; -fx-background-radius: 20px; -fx-background-color: WHITE;" />
+      <AnchorPane fx:id="anchorPlaylistPane" layoutX="6.0" layoutY="125.0" prefHeight="397.0" prefWidth="71.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: WHITE;" />
    </children>
 </AnchorPane>

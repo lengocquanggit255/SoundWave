@@ -20,6 +20,14 @@ public class User {
         playlists = Helper.getPlaylistByUserID(userID);
     }
 
+    public List<Playlist> getPlaylists() {
+        return this.playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
     public int getUserID() {
         return userID;
     }

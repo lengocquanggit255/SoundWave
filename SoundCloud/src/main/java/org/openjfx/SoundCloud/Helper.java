@@ -16,6 +16,7 @@ public class Helper {
     private static String username = "root";
     private static String password = "";
     private static Connection connection;
+    public static User currentUser = new User();// just for temporary
 
     static {
         try {
@@ -73,7 +74,6 @@ public class Helper {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 userId = resultSet.getInt("userID");
-                System.out.println("User ID: " + userId);
             } else {
                 System.out.println("No user found with the given email.");
             }
@@ -296,7 +296,7 @@ public class Helper {
             System.out.println(user.getUsername());
         } else {
             System.out.println("Invalid email or password. Sign-in failed.");
-           
+
         }
     }
 

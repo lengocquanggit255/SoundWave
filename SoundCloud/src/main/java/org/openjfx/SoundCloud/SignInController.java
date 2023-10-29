@@ -4,14 +4,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.openjfx.SoundCloud.base.User;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class SignInController implements Initializable {
@@ -33,8 +38,17 @@ public class SignInController implements Initializable {
 
         if (Helper.checkPassword(emailTextField.getText(), passWordTextField.getText())) {
             Stage stage = (Stage) SignInButton.getScene().getWindow();
+            Helper.currentUser = Helper.getUserByID(Helper.getUserIdFromEmail(emailTextField.getText()));
             try {
-                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("container.fxml"))));
+                Parent containerRoot = FXMLLoader.load(getClass().getResource("container.fxml"));
+                Scene containerScene = new Scene(containerRoot);
+
+                // Set the new scene
+                stage.setScene(containerScene);
+
+                // Center the stage on the screen
+                centerStageOnScreen(stage);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,7 +57,12 @@ public class SignInController implements Initializable {
             passWordTextField.setText("");
             signInError.setVisible(true);
         }
+    }
 
+    private void centerStageOnScreen(Stage stage) {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
     @Override
