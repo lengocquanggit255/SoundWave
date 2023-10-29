@@ -1,10 +1,12 @@
 package org.openjfx.SoundCloud.base;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Song {
     private int songID;
+    private String name;
     private int length;
     private List<String> genres;
     private List<Artist> artists;
@@ -13,8 +15,15 @@ public class Song {
 
     // Constructors, getters, and setters
 
-    public Song(int songID, int length, List<String> genres, List<Artist> artists, Date releaseDate, String lyrics) {
+    public Song() {
+        genres = new ArrayList<String>();
+        artists = new ArrayList<Artist>();
+    }
+
+    public Song(int songID, String name, int length, List<String> genres, List<Artist> artists, Date releaseDate,
+            String lyrics) {
         this.songID = songID;
+        this.name = name;
         this.length = length;
         this.genres = genres;
         this.artists = artists;
@@ -28,6 +37,14 @@ public class Song {
 
     public void setSongID(int songID) {
         this.songID = songID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLength() {

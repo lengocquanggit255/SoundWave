@@ -1,24 +1,31 @@
 package org.openjfx.SoundCloud.base;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
     private int playlistID;
     private String name;
-    private int numberOfSongs;
-    private int totalLength;
-    private User owner;
     private List<Song> songs;
 
     // Constructors, getters, and setters
+    public Playlist() {
+        songs = new ArrayList<Song>();
+    }
 
-    public Playlist(int playlistID, String name, int numberOfSongs, int totalLength, User owner, List<Song> songs) {
+    public Playlist(int playlistID, String name, List<Song> songs) {
         this.playlistID = playlistID;
         this.name = name;
-        this.numberOfSongs = numberOfSongs;
-        this.totalLength = totalLength;
-        this.owner = owner;
         this.songs = songs;
+    }
+
+    public void addSong(Song newSong) {
+        for (int i = 0; i < songs.size(); i++) {
+            if (newSong.getSongID() == songs.get(i).getSongID()) {
+                return;
+            }
+        }
+        songs.add(newSong);
     }
 
     public int getPlaylistID() {
@@ -35,30 +42,6 @@ public class Playlist {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getNumberOfSongs() {
-        return numberOfSongs;
-    }
-
-    public void setNumberOfSongs(int numberOfSongs) {
-        this.numberOfSongs = numberOfSongs;
-    }
-
-    public int getTotalLength() {
-        return totalLength;
-    }
-
-    public void setTotalLength(int totalLength) {
-        this.totalLength = totalLength;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public List<Song> getSongs() {

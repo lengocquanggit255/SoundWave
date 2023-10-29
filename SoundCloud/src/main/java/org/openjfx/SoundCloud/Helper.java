@@ -6,14 +6,19 @@ import java.util.Date;
 import java.util.List;
 
 import org.openjfx.SoundCloud.base.Artist;
+import org.openjfx.SoundCloud.base.Playlist;
 import org.openjfx.SoundCloud.base.Song;
 
 public class Helper {
+
+    private static String url = "jdbc:mysql://localhost:3307/music_application?useSSL=false";
+    private static String username = "root";
+    private static String password = "";
     private Connection connection;
 
     // Constructor
-    public Helper(Connection connection) {
-        this.connection = connection;
+    public Helper() throws SQLException {
+        connection = DriverManager.getConnection(url, username, password);
     }
 
     public Song getSongByID(int songID) throws SQLException {
@@ -29,12 +34,13 @@ public class Helper {
 
             if (resultSet.next()) {
                 int length = resultSet.getInt("length_minutes");
+                String name = resultSet.getString("name");
                 List<String> genres = getGenresForSong(songID);
                 List<Artist> artists = getArtistsForSong(songID);
                 Date releaseDate = resultSet.getDate("released_date");
                 String lyrics = resultSet.getString("lyrics");
 
-                song = new Song(songID, length, genres, artists, releaseDate, lyrics);
+                song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
             }
 
             return song;
@@ -110,39 +116,80 @@ public class Helper {
         }
     }
 
-    public static void main(String[] args) {
-        // Database connection details
-        String url = "jdbc:mysql://localhost:3307/musicdb?useSSL=false";
-        String username = "root";
-        String password = "";
+    public List<Playlist> getPlaylistByUserID(int userID) {
+        String userPlaylistQuery = "SELECT * FROM playlists WHERE userID = ?";
+        String playlistSongsQuery = "SELECT s.songID, s.name, s.length_minutes, s.released_date, s.lyrics FROM Song_Playlist sp JOIN Songs s ON sp.songID = s.songID WHERE sp.playlistID = ?";
+        PreparedStatement userPlaylistStatement = null;
+        PreparedStatement playlistSongsStatement = null;
+        ResultSet userPlaylistResultSet = null;
+        ResultSet playlistSongsResultSet = null;
+
+        List<Playlist> playlists = new ArrayList<>();
 
         try {
-            // Create a database connection
-            Connection connection = DriverManager.getConnection(url, username, password);
+            // Retrieve user playlists
+            userPlaylistStatement = connection.prepareStatement(userPlaylistQuery);
+            userPlaylistStatement.setInt(1, userID);
+            userPlaylistResultSet = userPlaylistStatement.executeQuery();
 
-            // Create a Helper instance
-            Helper helper = new Helper(connection);
+            while (userPlaylistResultSet.next()) {
+                Playlist newPlaylist = new Playlist();
+                newPlaylist.setPlaylistID(userPlaylistResultSet.getInt("playlistID"));
+                newPlaylist.setName(userPlaylistResultSet.getString("name"));
 
-            // Test retrieving a song by its ID
-            int songID = 1;
-            Song song = helper.getSongByID(songID);
+                // Retrieve songs for the playlist
+                playlistSongsStatement = connection.prepareStatement(playlistSongsQuery);
+                playlistSongsStatement.setInt(1, newPlaylist.getPlaylistID());
+                playlistSongsResultSet = playlistSongsStatement.executeQuery();
 
-            if (song != null) {
-                System.out.println("Song ID: " + song.getSongID());
-                System.out.println("Length: " + song.getLength());
-                System.out.println("Genres: " + song.getGenres());
-                System.out.println("Artists: " + song.getArtists().get(0).getNames());
-                System.out.println("Release Date: " + song.getReleaseDate());
-                System.out.println("Lyrics: " + song.getLyrics());
-            } else {
-                System.out.println("Song not found");
+                while (playlistSongsResultSet.next()) {
+                    int songID = playlistSongsResultSet.getInt("songID");
+                    newPlaylist.addSong(getSongByID(songID));
+                }
+                playlists.add(newPlaylist);
+
             }
 
-            // Close the database connection
-            connection.close();
+            return playlists;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (userPlaylistResultSet != null) {
+                    userPlaylistResultSet.close();
+                }
+                if (playlistSongsResultSet != null) {
+                    playlistSongsResultSet.close();
+                }
+                if (userPlaylistStatement != null) {
+                    userPlaylistStatement.close();
+                }
+                if (playlistSongsStatement != null) {
+                    playlistSongsStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null; // Return null in case of any errors
+    }
+
+    public static void main(String[] args) {
+        try {
+            // Create a Helper instance
+            Helper helper = new Helper();
+
+            // Test reading user playlists and songs
+            int userID = 1; // Set the user ID you want to retrieve playlists for
+            List<Playlist> playlists = helper.getPlaylistByUserID(userID);
+
+            for (int i = 0; i < playlists.size(); i++) {
+                System.out.println("Playlist's name: " + playlists.get(i).getName());
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 }

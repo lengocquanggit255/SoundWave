@@ -1,10 +1,15 @@
 package org.openjfx.SoundCloud.base;
 
+import java.util.List;
+
+import org.openjfx.SoundCloud.Helper;
+
 public class User {
     private int userID;
     private String username;
     private String password;
     private String email;
+    private List<Playlist> playlists;
 
     // Constructors, getters, and setters
 
@@ -13,6 +18,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+       // playlists = Helper.
     }
 
     public int getUserID() {
