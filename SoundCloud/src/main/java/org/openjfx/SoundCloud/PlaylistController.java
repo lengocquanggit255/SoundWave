@@ -22,16 +22,19 @@ public class PlaylistController implements Initializable {
 
     private List<Playlist> playlists = Helper.currentUser.getPlaylists();
 
+    private ContainerController containerController;
+    private PlaylistContentController playlistContentController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playlistScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         playlistScrollPane.setFitToWidth(true);
-        
+
         for (Playlist playlist : playlists) {
             Button playlistButton = new Button(playlist.getName());
             playlistButton.setOnAction(event -> {
-                // Handle button click event
-                System.out.println("Playlist clicked: " + playlist.getName());
+                playlistContentController.loadPlaylist(playlist);
+                containerController.setContentPane(playlistContentController.getMainPane());
             });
             playlistVBox.getChildren().add(playlistButton);
         }
@@ -39,4 +42,12 @@ public class PlaylistController implements Initializable {
         playlistScrollPane.setContent(playlistVBox);
     }
 
+
+    public void setContainerController(ContainerController containerController) {
+        this.containerController = containerController;
+    }
+
+    public void setPlaylistContentController(PlaylistContentController playlistContentController) {
+        this.playlistContentController = playlistContentController;
+    }
 }
