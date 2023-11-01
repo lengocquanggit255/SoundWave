@@ -21,12 +21,9 @@ public class ContainerController implements Initializable {
 
     private AnchorPane mp3Pane;
     private AnchorPane playlistPane;
-    private AnchorPane playlistContentPane;
-
 
     private PlaylistContentController playlistContentController;
     private PlaylistController playlistController;
-
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -40,7 +37,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistContentPane.fxml"));
-            playlistContentPane = fxmlLoader.load();
+            AnchorPane playlistContentPane = fxmlLoader.load();
             playlistContentController = fxmlLoader.getController();
 
         } catch (IOException e) {

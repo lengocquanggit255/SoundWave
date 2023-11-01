@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -31,7 +33,18 @@ public class PlaylistController implements Initializable {
         playlistScrollPane.setFitToWidth(true);
 
         for (Playlist playlist : playlists) {
-            Button playlistButton = new Button(playlist.getName());
+            ImageView playlistImageView = new ImageView(new Image(
+                    "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
+            playlistImageView.setFitWidth(60);
+            playlistImageView.setFitHeight(60);
+            Button playlistButton = new Button();
+            playlistButton.setPrefSize(70, 70);
+            playlistButton.setGraphic(playlistImageView);
+            playlistButton.setStyle("-fx-background-color: #121212;");
+
+            // Set the graphic (image) for the button
+            playlistButton.setGraphic(playlistImageView);
+
             playlistButton.setOnAction(event -> {
                 playlistContentController.loadPlaylist(playlist);
                 containerController.setContentPane(playlistContentController.getMainPane());
@@ -41,7 +54,6 @@ public class PlaylistController implements Initializable {
 
         playlistScrollPane.setContent(playlistVBox);
     }
-
 
     public void setContainerController(ContainerController containerController) {
         this.containerController = containerController;

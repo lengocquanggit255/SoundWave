@@ -17,7 +17,6 @@ public class Helper {
     private static String password = "";
     private static Connection connection;
     public static User currentUser = new User();// just for temporary
-    public static Playlist currentPlaylist = new Playlist();// just for temporary
 
     static {
         try {

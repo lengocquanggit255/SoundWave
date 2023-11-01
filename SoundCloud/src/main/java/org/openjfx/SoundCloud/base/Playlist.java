@@ -19,6 +19,10 @@ public class Playlist {
         this.songs = songs;
     }
 
+    public int size() {
+        return songs.size();
+    }
+
     public void addSong(Song newSong) {
         for (int i = 0; i < songs.size(); i++) {
             if (newSong.getSongID() == songs.get(i).getSongID()) {
