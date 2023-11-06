@@ -24,12 +24,15 @@ public class ContainerController implements Initializable {
 
     private PlaylistContentController playlistContentController;
     private PlaylistController playlistController;
+    private MP3Controller mp3Controller;
+    private AddPlaylistController addPlaylistController;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mp3Pane.fxml"));
             mp3Pane = fxmlLoader.load();
+            mp3Controller = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,17 +42,29 @@ public class ContainerController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistContentPane.fxml"));
             AnchorPane playlistContentPane = fxmlLoader.load();
             playlistContentController = fxmlLoader.getController();
+            playlistContentController.setMP3Controller(mp3Controller);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlaylistPane.fxml"));
+            AnchorPane addPlaylistPane = fxmlLoader.load();
+            addPlaylistController = fxmlLoader.getController();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistPane.fxml"));
             playlistPane = fxmlLoader.load();
             playlistController = fxmlLoader.getController();
             playlistController.setContainerController(this);
             playlistController.setPlaylistContentController(playlistContentController);
+            playlistController.setAddPlaylistController(addPlaylistController);
+            addPlaylistController.setPlaylistController(playlistController);
         } catch (IOException e) {
             e.printStackTrace();
         }

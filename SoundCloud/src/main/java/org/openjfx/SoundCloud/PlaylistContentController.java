@@ -6,17 +6,17 @@ import java.util.ResourceBundle;
 import org.openjfx.SoundCloud.base.Playlist;
 import org.openjfx.SoundCloud.base.Song;
 
-import javafx.css.PseudoClass;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,7 +40,31 @@ public class PlaylistContentController implements Initializable {
     @FXML
     private Label userNameLabel;
 
+    @FXML
+    private Button setPlaylistButton;
+
+    private MP3Controller mp3Controller;
+    private Playlist currentPlaylist;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        songScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        songScrollPane.setFitToWidth(true);
+    }
+
+    public AnchorPane getMainPane() {
+        return mainAnchorPane;
+    }
+
+    @FXML
+    public void loadCurrentPlaylistToMP3() {
+        mp3Controller.setPlaylist(currentPlaylist);
+        System.out.println("click");
+    }// !fix the problem with set playlist button
+
     public void loadPlaylist(Playlist playlist) {
+        // Set current playlist
+        this.currentPlaylist = playlist;
         // Set the playlist name
         playlistNameLabel.setText(playlist.getName());
 
@@ -57,6 +81,15 @@ public class PlaylistContentController implements Initializable {
             HBox songHBox = new HBox();
             songHBox.setAlignment(Pos.CENTER_LEFT); // Set alignment to center-left
             songHBox.setPrefSize(823, 65);// Set preferred size of the HBox
+            // Add an onClick action to the songHBox
+            songHBox.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    // Call the playSong method of the mp3Controller
+                    mp3Controller.setPlaylist(playlist);
+                    mp3Controller.playSong(song);
+                }
+            });
 
             // Create labels for song information
             Label orderLabel = new Label(Integer.toString(i + 1));
@@ -116,7 +149,7 @@ public class PlaylistContentController implements Initializable {
             font = Font.font("System", 12);
             lengthLabel.setFont(font);
             lengthLabel.setTextFill(Color.WHITE);
-            HBox.setMargin(lengthLabel, new Insets(0, 0, 0, 90)); // Left margin of 10
+            HBox.setMargin(lengthLabel, new Insets(0, 0, 0, 90)); // Left margin of 90
 
             songHBox.getChildren().addAll(orderLabel, imageView, songInfoVBox, dateReleasedLabel, lengthLabel);
             songVBox.getChildren().add(songHBox);
@@ -125,18 +158,7 @@ public class PlaylistContentController implements Initializable {
         songScrollPane.setContent(songVBox);
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        songScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        songScrollPane.setFitToWidth(true);
-
-        ScrollBar vBar = (ScrollBar) songScrollPane.lookup(".scroll-bar:vertical");
-        if (vBar != null) {
-            vBar.setOpacity(0);
-        }
-    }
-
-    public AnchorPane getMainPane() {
-        return mainAnchorPane;
+    public void setMP3Controller(MP3Controller mp3Controller) {
+        this.mp3Controller = mp3Controller;
     }
 }

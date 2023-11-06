@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.openjfx.SoundCloud.base.Playlist;
+import org.openjfx.SoundCloud.base.Song;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -39,9 +42,9 @@ public class MP3Controller implements Initializable {
     private File directory;
     private File[] files;
 
-    private ArrayList<File> songs;
-
-    private int songNumber;
+    private ArrayList<File> currentSongFiles;
+    private Playlist currentPlaylist;
+    private int songIndexInCurrentPlaylist;
 
     private Timer timer;
     private TimerTask task;
@@ -51,7 +54,8 @@ public class MP3Controller implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-        songs = new ArrayList<File>();
+        currentSongFiles = new ArrayList<File>();
+        currentPlaylist = Helper.allSong;
 
         directory = new File(
                 "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/music");
@@ -62,14 +66,14 @@ public class MP3Controller implements Initializable {
 
             for (File file : files) {
 
-                songs.add(file);
+                currentSongFiles.add(file);
             }
         }
-        media = new Media(songs.get(songNumber).toURI().toString());
+        media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
 
         mediaPlayer = new MediaPlayer(media);
 
-        songLabel.setText(songs.get(songNumber).getName());
+        songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
@@ -108,9 +112,9 @@ public class MP3Controller implements Initializable {
 
     public void previousMedia() {
 
-        if (songNumber > 0) {
+        if (songIndexInCurrentPlaylist > 0) {
 
-            songNumber--;
+            songIndexInCurrentPlaylist--;
 
             mediaPlayer.stop();
 
@@ -119,15 +123,15 @@ public class MP3Controller implements Initializable {
                 cancelTimer();
             }
 
-            media = new Media(songs.get(songNumber).toURI().toString());
+            media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
 
-            songLabel.setText(songs.get(songNumber).getName());
+            songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
 
             playMedia();
         } else {
 
-            songNumber = songs.size() - 1;
+            songIndexInCurrentPlaylist = currentSongFiles.size() - 1;
 
             mediaPlayer.stop();
 
@@ -136,10 +140,10 @@ public class MP3Controller implements Initializable {
                 cancelTimer();
             }
 
-            media = new Media(songs.get(songNumber).toURI().toString());
+            media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
 
-            songLabel.setText(songs.get(songNumber).getName());
+            songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
 
             playMedia();
         }
@@ -147,9 +151,9 @@ public class MP3Controller implements Initializable {
 
     public void nextMedia() {
 
-        if (songNumber < songs.size() - 1) {
+        if (songIndexInCurrentPlaylist < currentSongFiles.size() - 1) {
 
-            songNumber++;
+            songIndexInCurrentPlaylist++;
 
             mediaPlayer.stop();
 
@@ -158,27 +162,26 @@ public class MP3Controller implements Initializable {
                 cancelTimer();
             }
 
-            media = new Media(songs.get(songNumber).toURI().toString());
+            media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
 
-            songLabel.setText(songs.get(songNumber).getName());
+            songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
 
             playMedia();
         } else {
 
-            songNumber = 0;
+            songIndexInCurrentPlaylist = 0;
 
             mediaPlayer.stop();
 
-            media = new Media(songs.get(songNumber).toURI().toString());
+            media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
 
-            songLabel.setText(songs.get(songNumber).getName());
+            songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
 
             playMedia();
         }
     }
-
 
     public void beginTimer() {
 
@@ -207,5 +210,58 @@ public class MP3Controller implements Initializable {
 
         running = false;
         timer.cancel();
+    }
+
+    public void playSong(Song song) {
+        // Stop the current media player, if it is playing
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+        }
+        int indexOfSongInCurrentPlaylist = currentPlaylist.getSongs().indexOf(song);
+        // Create the file path using the song ID
+        media = new Media(currentSongFiles.get(indexOfSongInCurrentPlaylist).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        songIndexInCurrentPlaylist = indexOfSongInCurrentPlaylist;
+
+        // Update the song label
+        songLabel.setText(song.getName());
+
+        // Play the song
+        playMedia();
+    }
+
+    // !fix the problem with set playlist button
+    public void setPlaylist(Playlist playlist) {
+        // If playlist is empty, do nothing
+        if (playlist.getSongs().isEmpty()) {
+            return;
+        }
+        // Stop the current media player, if it is playing
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+        }
+        currentSongFiles.clear();
+
+        this.currentPlaylist = playlist;
+
+        // Update the songs list in MP3Controller with the songs from the playlist
+        for (int i = 0; i < playlist.getSongs().size(); i++) {
+            int songID = playlist.getSongs().get(i).getSongID();
+            currentSongFiles.add(files[songID]);
+        }
+
+        // Reset the song number to the first song in the playlist
+        songIndexInCurrentPlaylist = 0;
+
+        // Create a new Media instance with the first song in the playlist
+        media = new Media(currentSongFiles.get(songIndexInCurrentPlaylist).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        // Update the song label
+        songLabel.setText(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getName());
+
+        // Play the song
+        playMedia();
     }
 }

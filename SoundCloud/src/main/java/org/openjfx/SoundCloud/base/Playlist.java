@@ -13,6 +13,12 @@ public class Playlist {
         songs = new ArrayList<Song>();
     }
 
+    public Playlist(int playlistID, String name) {
+        this.playlistID = playlistID;
+        this.name = name;
+        songs = new ArrayList<Song>();
+    }
+
     public Playlist(int playlistID, String name, List<Song> songs) {
         this.playlistID = playlistID;
         this.name = name;

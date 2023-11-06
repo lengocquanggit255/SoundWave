@@ -22,21 +22,23 @@ public class PlaylistController implements Initializable {
     @FXML
     private ScrollPane playlistScrollPane;
 
+    @FXML
+    private Button addPlaylist;
+
     private List<Playlist> playlists = Helper.currentUser.getPlaylists();
 
     private ContainerController containerController;
     private PlaylistContentController playlistContentController;
+    private AddPlaylistController addPlaylistController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playlistScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        playlistScrollPane.setFitToWidth(true);
 
         for (Playlist playlist : playlists) {
             ImageView playlistImageView = new ImageView(new Image(
                     "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
-            playlistImageView.setFitWidth(60);
-            playlistImageView.setFitHeight(60);
+            playlistImageView.setFitWidth(50);
+            playlistImageView.setFitHeight(50);
             Button playlistButton = new Button();
             playlistButton.setPrefSize(70, 70);
             playlistButton.setGraphic(playlistImageView);
@@ -55,6 +57,31 @@ public class PlaylistController implements Initializable {
         playlistScrollPane.setContent(playlistVBox);
     }
 
+    @FXML
+    private void showAddPlaylistPane() {
+        containerController.setContentPane(addPlaylistController.getMainPane());
+    }
+
+    public void addNewPlaylist(Playlist playlist) {
+        ImageView playlistImageView = new ImageView(new Image(
+                "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
+        playlistImageView.setFitWidth(50);
+        playlistImageView.setFitHeight(50);
+        Button playlistButton = new Button();
+        playlistButton.setPrefSize(70, 70);
+        playlistButton.setGraphic(playlistImageView);
+        playlistButton.setStyle("-fx-background-color: #121212;");
+
+        // Set the graphic (image) for the button
+        playlistButton.setGraphic(playlistImageView);
+
+        playlistButton.setOnAction(event -> {
+            playlistContentController.loadPlaylist(playlist);
+            containerController.setContentPane(playlistContentController.getMainPane());
+        });
+        playlistVBox.getChildren().add(playlistButton);
+    }
+
     public void setContainerController(ContainerController containerController) {
         this.containerController = containerController;
     }
@@ -62,4 +89,9 @@ public class PlaylistController implements Initializable {
     public void setPlaylistContentController(PlaylistContentController playlistContentController) {
         this.playlistContentController = playlistContentController;
     }
+
+    public void setAddPlaylistController(AddPlaylistController addPlaylistController) {
+        this.addPlaylistController = addPlaylistController;
+    }
+
 }

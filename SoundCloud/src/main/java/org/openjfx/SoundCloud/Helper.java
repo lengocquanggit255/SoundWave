@@ -16,8 +16,6 @@ public class Helper {
     private static String username = "root";
     private static String password = "";
     private static Connection connection;
-    public static User currentUser = new User();// just for temporary
-
     static {
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -25,7 +23,10 @@ public class Helper {
             e.printStackTrace();
         }
     }
-
+    public static User currentUser = new User();// just for temporary
+    
+    public static Playlist allSong = getAllSongs();
+    
     public static User getUserByID(int userID) {
         User user = null;
 
@@ -281,6 +282,58 @@ public class Helper {
         }
 
         return null; // Return null in case of any errors
+    }
+
+    public static Playlist getAllSongs() {
+        Playlist allSong = new Playlist();// Special song that contains all songs and have no name, no id
+
+        try {
+            // Execute SQL query to fetch all songs from the database
+            String query = "SELECT * FROM Songs";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Iterate through the result set and create Song objects
+            while (resultSet.next()) {
+                int songID = resultSet.getInt("songID");
+                int length = resultSet.getInt("length_minutes");
+                String name = resultSet.getString("name");
+                List<String> genres = getGenresForSong(songID);
+                List<Artist> artists = getArtistsForSong(songID);
+                Date releaseDate = resultSet.getDate("released_date");
+                String lyrics = resultSet.getString("lyrics");
+
+               Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
+                // Set other song attributes
+
+                // Add the song to the list
+                allSong.getSongs().add(song);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allSong;
+    }
+
+    public static void insertPlaylist(int userID, String playlistName) {
+   
+            String query = "INSERT INTO playlist (user_id, playlist_name) VALUES (?, ?)";
+            PreparedStatement statement;
+            try {
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, userID);
+                statement.setString(2, playlistName);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Playlist inserted successfully.");
+
     }
 
     public static void main(String[] args) {
