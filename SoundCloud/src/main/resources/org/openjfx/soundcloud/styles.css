@@ -3,3 +3,7 @@
     -fx-background-radius: 50px;
     -fx-padding: 4px;
 }
+
+.no-arrow-choice-box .arrow-button {
+    -fx-background-image: none;
+}

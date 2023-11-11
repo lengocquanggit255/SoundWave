@@ -3,18 +3,21 @@ package org.openjfx.SoundCloud.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openjfx.SoundCloud.Helper;
+
 public class Playlist {
     private int playlistID;
     private String name;
     private List<Song> songs;
+    public static int highestPlaylistIDInDatabase = Helper.getHighestPlaylistID();
 
     // Constructors, getters, and setters
     public Playlist() {
         songs = new ArrayList<Song>();
     }
 
-    public Playlist(int playlistID, String name) {
-        this.playlistID = playlistID;
+    public Playlist(String name) {
+        this.playlistID = ++highestPlaylistIDInDatabase;
         this.name = name;
         songs = new ArrayList<Song>();
     }
@@ -36,6 +39,14 @@ public class Playlist {
             }
         }
         songs.add(newSong);
+    }
+
+    public void removeSong(Song song) {
+        for (int i = 0; i < songs.size(); i++) {
+            if (song.getSongID() == songs.get(i).getSongID()) {
+                songs.remove(song);
+            }
+        }
     }
 
     public int getPlaylistID() {

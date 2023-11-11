@@ -94,6 +94,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="removePlaylistButton" layoutX="94.0" layoutY="192.0" mnemonicParsing="false" onAction="#removePlaylistFromLibrary" text="Remove playlist from library" />
          </children>
       </AnchorPane>
       <Label alignment="CENTER" layoutX="9.0" layoutY="238.0" prefHeight="17.0" prefWidth="14.0" text="#" textFill="#afafaf">

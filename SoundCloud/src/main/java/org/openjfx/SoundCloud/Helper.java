@@ -24,9 +24,9 @@ public class Helper {
         }
     }
     public static User currentUser = new User();// just for temporary
-    
+
     public static Playlist allSong = getAllSongs();
-    
+
     public static User getUserByID(int userID) {
         User user = null;
 
@@ -303,7 +303,7 @@ public class Helper {
                 Date releaseDate = resultSet.getDate("released_date");
                 String lyrics = resultSet.getString("lyrics");
 
-               Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
+                Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
                 // Set other song attributes
 
                 // Add the song to the list
@@ -321,19 +321,53 @@ public class Helper {
     }
 
     public static void insertPlaylist(int userID, String playlistName) {
-   
-            String query = "INSERT INTO playlist (user_id, playlist_name) VALUES (?, ?)";
-            PreparedStatement statement;
+
+        String query = "INSERT INTO playlist (user_id, playlist_name) VALUES (?, ?)";
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, userID);
+            statement.setString(2, playlistName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Playlist inserted successfully.");
+
+    }
+
+    public static int getHighestPlaylistID() {
+        String query = "SELECT MAX(playlistID) FROM playlists";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                statement = connection.prepareStatement(query);
-                statement.setInt(1, userID);
-                statement.setString(2, playlistName);
-                statement.executeUpdate();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("Playlist inserted successfully.");
+        }
 
+        return -1; // Return -1 if no playlistID is found or an error occurs
+    }
+
+    public static void saveUserDataToDatabase() {
+        
     }
 
     public static void main(String[] args) {

@@ -35,8 +35,7 @@ public class AddPlaylistController implements Initializable {
     @FXML
     private void onSaveButtonClicked() {
         String playlistName = playlistNameTextField.getText();
-        int userId = Helper.currentUser.getUserID();
-        Playlist newPlaylist = new Playlist(userId, playlistName);
+        Playlist newPlaylist = new Playlist(playlistName);
         Helper.currentUser.getPlaylists().add(newPlaylist);
 
         // Reset the input fields

@@ -28,7 +28,7 @@ public class Main extends Application {
 
             @Override
             public void handle(WindowEvent arg0) {
-
+                Helper.saveUserDataToDatabase();
                 Platform.exit();
                 System.exit(0);
             }

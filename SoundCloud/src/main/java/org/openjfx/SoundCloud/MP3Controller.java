@@ -214,11 +214,14 @@ public class MP3Controller implements Initializable {
 
     public void playSong(Song song) {
         // Stop the current media player, if it is playing
-        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
+            mediaPlayer.dispose();
         }
+
         int indexOfSongInCurrentPlaylist = currentPlaylist.getSongs().indexOf(song);
-        // Create the file path using the song ID
+
+        // Create the file path using the song index
         media = new Media(currentSongFiles.get(indexOfSongInCurrentPlaylist).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
@@ -231,7 +234,6 @@ public class MP3Controller implements Initializable {
         playMedia();
     }
 
-    // !fix the problem with set playlist button
     public void setPlaylist(Playlist playlist) {
         // If playlist is empty, do nothing
         if (playlist.getSongs().isEmpty()) {

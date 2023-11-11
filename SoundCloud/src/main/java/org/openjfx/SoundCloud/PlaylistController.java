@@ -2,6 +2,7 @@ package org.openjfx.SoundCloud;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -80,6 +81,33 @@ public class PlaylistController implements Initializable {
             containerController.setContentPane(playlistContentController.getMainPane());
         });
         playlistVBox.getChildren().add(playlistButton);
+    }
+
+    public void reload() {
+        playlistVBox.getChildren().clear(); // Clear existing content
+
+        // Re-populate the playlistVBox with updated data
+          for (Playlist playlist : playlists) {
+            ImageView playlistImageView = new ImageView(new Image(
+                    "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
+            playlistImageView.setFitWidth(50);
+            playlistImageView.setFitHeight(50);
+            Button playlistButton = new Button();
+            playlistButton.setPrefSize(70, 70);
+            playlistButton.setGraphic(playlistImageView);
+            playlistButton.setStyle("-fx-background-color: #121212;");
+
+            // Set the graphic (image) for the button
+            playlistButton.setGraphic(playlistImageView);
+
+            playlistButton.setOnAction(event -> {
+                playlistContentController.loadPlaylist(playlist);
+                containerController.setContentPane(playlistContentController.getMainPane());
+            });
+            playlistVBox.getChildren().add(playlistButton);
+        }
+
+        playlistScrollPane.setContent(playlistVBox);
     }
 
     public void setContainerController(ContainerController containerController) {

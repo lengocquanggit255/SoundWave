@@ -1,6 +1,7 @@
 package org.openjfx.SoundCloud;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.openjfx.SoundCloud.base.Playlist;
@@ -13,6 +14,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +46,12 @@ public class PlaylistContentController implements Initializable {
     @FXML
     private Button setPlaylistButton;
 
+    @FXML
+    private Button removePlaylistButton;
+
+    private PlaylistController playlistController;
     private MP3Controller mp3Controller;
+    private ContainerController containerController;
     private Playlist currentPlaylist;
 
     @Override
@@ -57,10 +65,16 @@ public class PlaylistContentController implements Initializable {
     }
 
     @FXML
+    public void removePlaylistFromLibrary() {
+        Helper.currentUser.getPlaylists().remove(this.currentPlaylist);
+        playlistController.reload();
+        containerController.setContentPane(null);
+    }
+
+    @FXML
     public void loadCurrentPlaylistToMP3() {
         mp3Controller.setPlaylist(currentPlaylist);
-        System.out.println("click");
-    }// !fix the problem with set playlist button
+    }
 
     public void loadPlaylist(Playlist playlist) {
         // Set current playlist
@@ -139,26 +153,71 @@ public class PlaylistContentController implements Initializable {
             font = Font.font("System", 12);
             dateReleasedLabel.setFont(font);
             dateReleasedLabel.setTextFill(Color.WHITE);
-            HBox.setMargin(dateReleasedLabel, new Insets(0, 0, 0, 10)); // Left margin of 10
 
             // Create labels for song dateReleased
             Label lengthLabel = new Label(Integer.toString(song.getLength()) + ":00");
             // Set preferred size of the lengthLabel
             lengthLabel.setPrefSize(52, 65);
             lengthLabel.setAlignment(Pos.CENTER_LEFT);
-            font = Font.font("System", 12);
-            lengthLabel.setFont(font);
             lengthLabel.setTextFill(Color.WHITE);
-            HBox.setMargin(lengthLabel, new Insets(0, 0, 0, 90)); // Left margin of 90
 
-            songHBox.getChildren().addAll(orderLabel, imageView, songInfoVBox, dateReleasedLabel, lengthLabel);
+            // Create a "Add new song into playlist" menu item
+            MenuButton addSongIntoPlaylistMenuButton = new MenuButton("Playlists");
+
+            // Get the user's playlist collection
+            List<Playlist> currentUserPlaylists = Helper.currentUser.getPlaylists();
+
+            // Iterate through the playlists and create MenuItems for each one
+            for (Playlist p : currentUserPlaylists) {
+                // Check to see if the song already exists in the playlist
+                if (p.getPlaylistID() != currentPlaylist.getPlaylistID()) {
+                    MenuItem playlistMenuItem = new MenuItem(p.getName());
+                    playlistMenuItem.setOnAction(event -> {
+                        // Action for the playlist menu item
+                        p.addSong(song);
+                    });
+                    addSongIntoPlaylistMenuButton.getItems().add(playlistMenuItem);
+                }
+            }
+            // Create a menu item and set graphic to addSongIntoPlaylistMenuButton
+            MenuItem addSongMenuItem = new MenuItem("Add Song to Playlist");
+            addSongMenuItem.setGraphic(addSongIntoPlaylistMenuButton);
+
+            // Create "Remove Song from Playlist" option
+            MenuItem removeSongMenuItem = new MenuItem("Remove Song from Playlist");
+            removeSongMenuItem.setOnAction(event -> {
+                currentPlaylist.removeSong(song);
+                reloadPane();
+            });
+
+            MenuButton optionMenuButton = new MenuButton("Options");
+            optionMenuButton.getItems().addAll(addSongMenuItem, removeSongMenuItem);
+
+            // Add all the elements to the song HBox
+            songHBox.getChildren().addAll(orderLabel, imageView, songInfoVBox, dateReleasedLabel, lengthLabel,
+                    optionMenuButton);
+
+            // Add the song HBox to the song VBox
             songVBox.getChildren().add(songHBox);
         }
 
+        // Set the song VBox as the content of the song scroll pane
         songScrollPane.setContent(songVBox);
+    }
+
+    private void reloadPane() {
+        loadPlaylist(this.currentPlaylist);
     }
 
     public void setMP3Controller(MP3Controller mp3Controller) {
         this.mp3Controller = mp3Controller;
+    }
+
+    public void setPlaylistController(PlaylistController playlistController) {
+        this.playlistController = playlistController;
+    }
+
+    public void setContainerController(ContainerController containerController) {
+        this.containerController = containerController;
     }
 }

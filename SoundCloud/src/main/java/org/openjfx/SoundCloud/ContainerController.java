@@ -52,11 +52,11 @@ public class ContainerController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlaylistPane.fxml"));
             AnchorPane addPlaylistPane = fxmlLoader.load();
             addPlaylistController = fxmlLoader.getController();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistPane.fxml"));
             playlistPane = fxmlLoader.load();
@@ -65,6 +65,8 @@ public class ContainerController implements Initializable {
             playlistController.setPlaylistContentController(playlistContentController);
             playlistController.setAddPlaylistController(addPlaylistController);
             addPlaylistController.setPlaylistController(playlistController);
+            playlistContentController.setPlaylistController(playlistController);
+            playlistContentController.setContainerController(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +75,9 @@ public class ContainerController implements Initializable {
 
     public void setContentPane(AnchorPane pane) {
         anchorContentPane.getChildren().clear();
-        anchorContentPane.getChildren().add(pane);
+        if (pane != null) {
+            anchorContentPane.getChildren().add(pane);
+        }
     }
+
 }
