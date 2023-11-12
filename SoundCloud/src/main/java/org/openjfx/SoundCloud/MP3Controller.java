@@ -3,6 +3,8 @@ package org.openjfx.SoundCloud;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -61,11 +63,16 @@ public class MP3Controller implements Initializable {
                 "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/music");
 
         files = directory.listFiles();
-
         if (files != null) {
+            // Sort the files based on their names in ascending order
+            Arrays.sort(files, Comparator.comparingInt(file -> {
+                String fileName = file.getName();
+                int dotIndex = fileName.lastIndexOf(".");
+                String numericPart = fileName.substring(0, dotIndex);
+                return Integer.parseInt(numericPart);
+            }));
 
             for (File file : files) {
-
                 currentSongFiles.add(file);
             }
         }

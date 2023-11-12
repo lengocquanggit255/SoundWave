@@ -479,7 +479,7 @@ public class Helper {
         }
 
         // Construct the SQL query to delete the playlists from song_playlist table
-        String deleteQueryInSong_PlaylistTable = "DELETE FROM song_playlist WHERE playlistID IN (" + playlistIds + ")";
+        String deleteQueryInSong_PlaylistTable = " (" + playlistIds + ")";
         try {
             // Create a statement and execute the delete query
             Statement statement = connection.createStatement();

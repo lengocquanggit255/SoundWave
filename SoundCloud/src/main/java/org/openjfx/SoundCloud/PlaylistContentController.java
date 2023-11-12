@@ -67,7 +67,7 @@ public class PlaylistContentController implements Initializable {
     @FXML
     public void removePlaylistFromLibrary() {
         Helper.currentUser.getPlaylists().remove(this.currentPlaylist);
-        
+
         // Add the removed playlist to the removedPlaylists list for updating when close
         // application
         Helper.removedPlaylists.add(this.currentPlaylist.getPlaylistID());
@@ -129,14 +129,14 @@ public class PlaylistContentController implements Initializable {
             VBox songInfoVBox = new VBox();
             songInfoVBox.setPrefSize(458, 65); // Set preferred size of the VBox
             // Create the labels for song name and artist
-            Label nameLabel = new Label("Name: " + song.getName());
+            Label nameLabel = new Label(song.getName());
             nameLabel.setAlignment(Pos.CENTER_LEFT);
-            nameLabel.setPrefSize(213, 28);
+            nameLabel.setPrefSize(250, 28);
             font = Font.font("System", FontWeight.BOLD, 14);
             nameLabel.setFont(font);
             nameLabel.setTextFill(Color.WHITE);
 
-            Label artistLabel = new Label("Artist: " + song.getArtists().toString());
+            Label artistLabel = new Label(song.getArtists().get(0).getNames());
             artistLabel.setAlignment(Pos.CENTER_LEFT);
             artistLabel.setPrefSize(79, 17);
             font = Font.font("System", 12);
@@ -157,13 +157,6 @@ public class PlaylistContentController implements Initializable {
             font = Font.font("System", 12);
             dateReleasedLabel.setFont(font);
             dateReleasedLabel.setTextFill(Color.WHITE);
-
-            // Create labels for song dateReleased
-            Label lengthLabel = new Label(Integer.toString(song.getLength()) + ":00");
-            // Set preferred size of the lengthLabel
-            lengthLabel.setPrefSize(52, 65);
-            lengthLabel.setAlignment(Pos.CENTER_LEFT);
-            lengthLabel.setTextFill(Color.WHITE);
 
             // Create a "Add new song into playlist" menu item
             MenuButton addSongIntoPlaylistMenuButton = new MenuButton("Playlists");
@@ -196,10 +189,18 @@ public class PlaylistContentController implements Initializable {
 
             MenuButton optionMenuButton = new MenuButton("Options");
             optionMenuButton.getItems().addAll(addSongMenuItem, removeSongMenuItem);
+            HBox.setMargin(optionMenuButton, new Insets(0, 0, 0, 12)); // Left margin of 90
+            // Create labels for song dateReleased
+            Label lengthLabel = new Label(Integer.toString(song.getLength()) + ":00");
+            // Set preferred size of the lengthLabel
+            lengthLabel.setPrefSize(52, 65);
+            lengthLabel.setAlignment(Pos.CENTER_LEFT);
+            lengthLabel.setTextFill(Color.WHITE);
+            HBox.setMargin(lengthLabel, new Insets(0, 0, 0, 90)); // Left margin of 90
 
             // Add all the elements to the song HBox
-            songHBox.getChildren().addAll(orderLabel, imageView, songInfoVBox, dateReleasedLabel, lengthLabel,
-                    optionMenuButton);
+            songHBox.getChildren().addAll(orderLabel, imageView, songInfoVBox, dateReleasedLabel, optionMenuButton,
+                    lengthLabel);
 
             // Add the song HBox to the song VBox
             songVBox.getChildren().add(songHBox);
