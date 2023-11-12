@@ -37,6 +37,8 @@ public class AddPlaylistController implements Initializable {
         String playlistName = playlistNameTextField.getText();
         Playlist newPlaylist = new Playlist(playlistName);
         Helper.currentUser.getPlaylists().add(newPlaylist);
+        // Add playlists into addedPlaylists for updating in database when close application
+        Helper.addedPlaylists.add(newPlaylist);
 
         // Reset the input fields
         playlistNameTextField.clear();

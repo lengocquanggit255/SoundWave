@@ -67,6 +67,10 @@ public class PlaylistContentController implements Initializable {
     @FXML
     public void removePlaylistFromLibrary() {
         Helper.currentUser.getPlaylists().remove(this.currentPlaylist);
+        
+        // Add the removed playlist to the removedPlaylists list for updating when close
+        // application
+        Helper.removedPlaylists.add(this.currentPlaylist.getPlaylistID());
         playlistController.reload();
         containerController.setContentPane(null);
     }

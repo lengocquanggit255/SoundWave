@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.openjfx.SoundCloud.base.Artist;
 import org.openjfx.SoundCloud.base.Playlist;
@@ -26,6 +27,9 @@ public class Helper {
     public static User currentUser = new User();// just for temporary
 
     public static Playlist allSong = getAllSongs();
+
+    public static List<Integer> removedPlaylists = new ArrayList<Integer>();// Track removedPlaylists
+    public static List<Playlist> addedPlaylists = new ArrayList<Playlist>();// Track addedPlaylists
 
     public static User getUserByID(int userID) {
         User user = null;
@@ -367,24 +371,153 @@ public class Helper {
     }
 
     public static void saveUserDataToDatabase() {
-        
+        addPlaylists();
+        removePlaylists();
+        addSongsToPlaylists();
+        removeNonExistentPairsByPlaylist();
     }
 
-    public static void main(String[] args) {
+    private static void addPlaylists() {
+        if (addedPlaylists == null || addedPlaylists.isEmpty()) {
+            return;
+        }
+        for (Playlist playlist : addedPlaylists) {
+            try {
+                // Get the playlistID and name from the playlist object
+                int playlistID = playlist.getPlaylistID();
+                int userID = currentUser.getUserID();
+                String playlistName = playlist.getName();
 
-        // Test reading user playlists and songs
-        String email = "john@example.com";
-        String password = "password123";
+                // Construct the SQL query to insert the new playlist into the playlists table
+                String insertQuery = "INSERT INTO playlists (playlistID, userID, name) VALUES (?, ?, ?)";
 
-        boolean signInSuccess = checkPassword(email, password);
-        if (signInSuccess) {
-            System.out.println("Sign-in successful!");
-            User user = getUserByID(getUserIdFromEmail(email));
-            System.out.println(user.getUsername());
-        } else {
-            System.out.println("Invalid email or password. Sign-in failed.");
+                // Create a prepared statement with the insert query
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                preparedStatement.setInt(1, playlistID);
+                preparedStatement.setInt(2, userID);
+                preparedStatement.setString(3, playlistName);
 
+                // Execute the prepared statement to insert the new playlist
+                int rowsAffected = preparedStatement.executeUpdate();
+                System.out.println(rowsAffected + " playlist(s) added to the database.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private static void removeNonExistentPairsByPlaylist() {
+        for (Playlist playlist : currentUser.getPlaylists()) {
+            try {
+                int playlistID = playlist.getPlaylistID();
+
+                // Get the list of songIDs in the given playlist
+                List<Integer> songIDs = new ArrayList<>();
+                for (Song song : playlist.getSongs()) {
+                    int songID = song.getSongID();
+                    songIDs.add(songID);
+                }
+                if (!songIDs.isEmpty()) {
+                    // Construct the SQL query to remove non-existent pairs from the song_playlist
+                    // table for the given playlistID
+                    String deleteQuery = "DELETE FROM song_playlist WHERE playlistID = " + playlistID +
+                            " AND songID NOT IN ("
+                            + String.join(",", songIDs.stream().map(String::valueOf).collect(Collectors.toList()))
+                            + ")";
+
+                    // Execute the delete query to remove the non-existent pairs
+                    Statement statement = connection.createStatement();
+                    int rowsAffected = statement.executeUpdate(deleteQuery);
+                    System.out.println(
+                            rowsAffected + " non-existent pair(s) removed from song_playlist table for playlistID: "
+                                    + playlistID);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void addSongsToPlaylists() {
+        for (Playlist playlist : currentUser.getPlaylists()) {
+            for (Song song : playlist.getSongs()) {
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement(
+                            "SELECT COUNT(*) AS count FROM song_playlist WHERE songID = ? AND playlistID = ?");
+                    preparedStatement.setInt(1, song.getSongID());
+                    preparedStatement.setInt(2, playlist.getPlaylistID());
+                    ResultSet resultSet = preparedStatement.executeQuery();
+
+                    if (resultSet.next() && resultSet.getInt("count") == 0) {
+                        // The pair (songID, playlistID) does not exist, so add it to the database
+                        PreparedStatement insertStatement = connection.prepareStatement(
+                                "INSERT INTO song_playlist (songID, playlistID) VALUES (?, ?)");
+                        insertStatement.setInt(1, song.getSongID());
+                        insertStatement.setInt(2, playlist.getPlaylistID());
+                        insertStatement.executeUpdate();
+                        System.out.println("New pair added to the database.");
+                    } else {
+                        System.out.println("Pair already exists in the database.");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static void removePlaylists() {
+        if (removedPlaylists == null || removedPlaylists.isEmpty()) {
+            return;
+        }
+        String playlistIds = removedPlaylists.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+
+        if (playlistIds.isEmpty()) {
+            return;
+        }
+
+        // Construct the SQL query to delete the playlists from song_playlist table
+        String deleteQueryInSong_PlaylistTable = "DELETE FROM song_playlist WHERE playlistID IN (" + playlistIds + ")";
+        try {
+            // Create a statement and execute the delete query
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate(deleteQueryInSong_PlaylistTable);
+
+            System.out.println(rowsAffected + " row(s) removed in song_playlist table.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Construct the SQL query to delete the playlists from playlists table
+        String deleteQueryInPlaylistTable = "DELETE FROM playlists WHERE playlistID IN (" + playlistIds + ")";
+        try {
+            // Create a statement and execute the delete query
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate(deleteQueryInPlaylistTable);
+
+            System.out.println(rowsAffected + " row(s) removed in playlist table.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // public static void main(String[] args) {
+
+    // // Test reading user playlists and songs
+    // String email = "john@example.com";
+    // String password = "password123";
+
+    // boolean signInSuccess = checkPassword(email, password);
+    // if (signInSuccess) {
+    // System.out.println("Sign-in successful!");
+    // User user = getUserByID(getUserIdFromEmail(email));
+    // System.out.println(user.getUsername());
+    // } else {
+    // System.out.println("Invalid email or password. Sign-in failed.");
+
+    // }
+    // }
 
 }
