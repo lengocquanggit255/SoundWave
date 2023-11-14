@@ -65,8 +65,11 @@
       </HBox>
       <HBox fx:id="playlistHBox3" layoutX="362.0" layoutY="161.0" prefHeight="79.0" prefWidth="300.0" style="-fx-background-color: #282828; -fx-border-radius: 10px; -fx-background-radius: 10px;">
          <children>
-            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;" />
-            <Label prefHeight="79.0" prefWidth="159.0" text="Ai cũng phải bắt đầu từ đâu đó" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;">
+               <image>
+                  <Image url="@4YourEyezOnly.jpg" />
+               </image></ImageView>
+            <Label prefHeight="79.0" prefWidth="159.0" text="4YourEyezOnly" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -78,7 +78,7 @@ public class PlaylistContentController implements Initializable {
     @FXML
     public void loadCurrentPlaylistToMP3() {
         mp3Controller.setPlaylist(currentPlaylist);
-    }
+    }// for play button in playlist, open fxml for more
 
     public void loadPlaylist(Playlist playlist) {
         // Set current playlist

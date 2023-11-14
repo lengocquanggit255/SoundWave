@@ -563,6 +563,41 @@ public class Helper {
         return null; // Return null in case of any errors
     }
 
+    public static Playlist searchSongsByName(String songName) {
+        Playlist matchingSongs = new Playlist();
+
+        try {
+            // Construct the SQL query to search for songs similar to the input
+            String query = "SELECT * FROM Songs WHERE name LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + songName + "%");
+
+            // Execute the query and retrieve the result set
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and create Song objects for matching songs
+            while (resultSet.next()) {
+                int songID = resultSet.getInt("songID");
+                int length = resultSet.getInt("length_minutes");
+                List<String> genres = getGenresForSong(songID);
+                List<Artist> artists = getArtistsForSong(songID);
+                Date releaseDate = resultSet.getDate("released_date");
+                String lyrics = resultSet.getString("lyrics");
+
+                Song song = new Song(songID, resultSet.getString("name"), length, genres, artists, releaseDate, lyrics);
+                matchingSongs.addSong(song);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return matchingSongs;
+    }
+
     // public static void main(String[] args) {
 
     // // Test reading user playlists and songs

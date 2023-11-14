@@ -7,7 +7,8 @@
    <children>
       <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="113.0" prefWidth="75.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: WHITE;">
          <children>
-            <Button fx:id="homeButton" layoutX="19.0" layoutY="31.0" mnemonicParsing="false" onAction="#homeButtonClick" prefHeight="25.0" prefWidth="37.0" text="Button" />
+            <Button fx:id="homeButton" layoutX="19.0" layoutY="15.0" mnemonicParsing="false" onAction="#homeButtonClick" prefHeight="25.0" prefWidth="37.0" text="Button" />
+            <Button fx:id="searchButton" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#searchButtonClick" prefHeight="25.0" prefWidth="37.0" text="Button" />
          </children></AnchorPane>
       <AnchorPane fx:id="anchorMP3Pane" layoutY="529.0" prefHeight="91.0" prefWidth="1081.0" />
       <AnchorPane fx:id="anchorContentPane" layoutX="87.0" layoutY="6.0" prefHeight="517.0" prefWidth="987.0" style="-fx-background-radius: 20px; -fx-background-radius: 20px; -fx-background-color: BLACK; -fx-border-color: BLACK;" />

@@ -21,6 +21,8 @@ public class ContainerController implements Initializable {
     public AnchorPane anchorPlaylistPane;
     @FXML
     private Button homeButton;
+    @FXML
+    private Button searchButton;
 
     private AnchorPane mp3Pane;
     private AnchorPane playlistPane;
@@ -31,6 +33,7 @@ public class ContainerController implements Initializable {
     private AddPlaylistController addPlaylistController;
     private HomeController homeController;
     private HomePlaylistContentController homePlaylistContentController;
+    private SearchController searchController;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -87,6 +90,14 @@ public class ContainerController implements Initializable {
             e.printStackTrace();
         }
 
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchPane.fxml"));
+            AnchorPane searchPane = fxmlLoader.load();
+            searchController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Set controller
         homeController.setHomePlaylistContentController(homePlaylistContentController);
         homeController.setContainerController(this);
@@ -99,6 +110,7 @@ public class ContainerController implements Initializable {
         playlistContentController.setContainerController(this);
         homePlaylistContentController.setContainerController(this);
         homePlaylistContentController.setMP3Controller(mp3Controller);
+        searchController.setMP3Controller(mp3Controller);
 
         // Set default pane is homePane
         anchorContentPane.getChildren().add(homeController.getMainPane());
@@ -115,6 +127,10 @@ public class ContainerController implements Initializable {
 
     public void homeButtonClick() {
         setContentPane(homeController.getMainPane());
+    }
+
+    public void searchButtonClick() {
+        setContentPane(searchController.getMainPane());
     }
 
 }
