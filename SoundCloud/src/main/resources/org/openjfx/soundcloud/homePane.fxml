@@ -33,8 +33,11 @@
       </HBox>
       <HBox fx:id="playlistHBox2" layoutX="48.0" layoutY="161.0" prefHeight="79.0" prefWidth="300.0" style="-fx-background-color: #282828; -fx-border-radius: 10px; -fx-background-radius: 10px;">
          <children>
-            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;" />
-            <Label prefHeight="79.0" prefWidth="159.0" text="Ai cũng phải bắt đầu từ đâu đó" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;">
+               <image>
+                  <Image url="@LOV6.png" />
+               </image></ImageView>
+            <Label prefHeight="79.0" prefWidth="159.0" text="LOV6" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -75,8 +78,11 @@
       </HBox>
       <HBox fx:id="playlistHBox4" layoutX="676.0" layoutY="71.0" prefHeight="79.0" prefWidth="300.0" style="-fx-background-color: #282828; -fx-border-radius: 10px; -fx-background-radius: 10px;">
          <children>
-            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;" />
-            <Label prefHeight="79.0" prefWidth="159.0" text="Ai cũng phải bắt đầu từ đâu đó" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10px;">
+               <image>
+                  <Image url="@HerLoss.jpg" />
+               </image></ImageView>
+            <Label prefHeight="79.0" prefWidth="159.0" text="Her Loss" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -68,13 +68,18 @@ public class HomeController implements Initializable {
         Playlist selectedPlaylist = playlists.get(index);
         switch (index) {
             case 0:
-                homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo");
+                homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo.png");
                 break;
             case 1:
-                homePlaylistContentController.setPlaylistImageView("EverydayIsChristmas");
+                homePlaylistContentController.setPlaylistImageView("EverydayIsChristmas.png");
+            case 2:
+                homePlaylistContentController.setPlaylistImageView("LOV6.png");
+                break;
+            case 4:
+                homePlaylistContentController.setPlaylistImageView("HerLoss.jpg");
                 break;
             default:
-                homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo");
+                homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo.png");
         }
         homePlaylistContentController.loadPlaylist(selectedPlaylist);
         containerController.setContentPane(homePlaylistContentController.getMainPane());

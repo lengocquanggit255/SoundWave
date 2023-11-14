@@ -64,8 +64,8 @@ public class HomePlaylistContentController implements Initializable {
 
     public void setPlaylistImageView(String name) {
         playlistImageView.setImage(new Image(
-                "D:\\QuangWork\\Github\\MusicApp\\SoundCloud\\src\\main\\resources\\org\\openjfx\\soundcloud\\" + name
-                        + ".png"));
+                "D:\\QuangWork\\Github\\MusicApp\\SoundCloud\\src\\main\\resources\\org\\openjfx\\soundcloud\\"
+                        + name));
     }
 
     @FXML
