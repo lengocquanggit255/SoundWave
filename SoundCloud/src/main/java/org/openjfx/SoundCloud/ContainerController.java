@@ -34,6 +34,7 @@ public class ContainerController implements Initializable {
     private HomeController homeController;
     private HomePlaylistContentController homePlaylistContentController;
     private SearchController searchController;
+    private LyricController lyricController;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -98,6 +99,14 @@ public class ContainerController implements Initializable {
             e.printStackTrace();
         }
 
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lyricPane.fxml"));
+            AnchorPane lyricPane = fxmlLoader.load();
+            lyricController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Set controller
         homeController.setHomePlaylistContentController(homePlaylistContentController);
         homeController.setContainerController(this);
@@ -111,6 +120,8 @@ public class ContainerController implements Initializable {
         homePlaylistContentController.setContainerController(this);
         homePlaylistContentController.setMP3Controller(mp3Controller);
         searchController.setMP3Controller(mp3Controller);
+        mp3Controller.setContainerController(this);
+        mp3Controller.setLyricController(lyricController);
 
         // Set default pane is homePane
         anchorContentPane.getChildren().add(homeController.getMainPane());

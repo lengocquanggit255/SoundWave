@@ -37,6 +37,8 @@ public class MP3Controller implements Initializable {
     private ProgressBar songProgressBar;
     @FXML
     private ImageView playButtonImageView;
+    @FXML
+    private Button lyricButton;
 
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -52,6 +54,22 @@ public class MP3Controller implements Initializable {
     private TimerTask task;
 
     private boolean running;
+    private LyricController lyricController;
+    private ContainerController containerController;
+
+    public void setLyricController(LyricController lyricController) {
+        this.lyricController = lyricController;
+    }
+
+    public void setContainerController(ContainerController containerController) {
+        this.containerController = containerController;
+    }
+
+    @FXML
+    public void showSongLyric() {
+        lyricController.loadSongLyric(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getLyrics());
+        containerController.setContentPane(lyricController.getMainPane());
+    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -108,6 +126,7 @@ public class MP3Controller implements Initializable {
         mediaPlayer.play();
         playButtonImageView.setImage(new Image(
                 "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/pauseButton.png"));
+        lyricController.loadSongLyric(currentPlaylist.getSongs().get(songIndexInCurrentPlaylist).getLyrics());
     }
 
     public void pauseMedia() {

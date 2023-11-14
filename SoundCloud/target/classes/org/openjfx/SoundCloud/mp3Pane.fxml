@@ -51,5 +51,6 @@
       </Button>
       <Label layoutX="8.0" layoutY="12.0" prefHeight="71.0" prefWidth="73.0" style="-fx-background-color: WHITE;" />
       <Label fx:id="songLabel" layoutX="95.0" layoutY="22.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="WHITE" />
+      <Button fx:id="lyricButton" layoutX="696.0" layoutY="27.0" mnemonicParsing="false" onAction="#showSongLyric" text="Button" />
    </children>
 </AnchorPane>
