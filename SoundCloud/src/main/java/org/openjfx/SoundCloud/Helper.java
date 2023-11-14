@@ -479,7 +479,7 @@ public class Helper {
         }
 
         // Construct the SQL query to delete the playlists from song_playlist table
-        String deleteQueryInSong_PlaylistTable = " (" + playlistIds + ")";
+        String deleteQueryInSong_PlaylistTable = "DELETE FROM song_playlist WHERE playlistID IN (" + playlistIds + ")";
         try {
             // Create a statement and execute the delete query
             Statement statement = connection.createStatement();
@@ -501,6 +501,66 @@ public class Helper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Playlist> getPlaylistOfAdmin() {
+        int userID = 1;
+        String userPlaylistQuery = "SELECT * FROM playlists WHERE userID = ?";
+        String playlistSongsQuery = "SELECT s.songID, s.name, s.length_minutes, s.released_date, s.lyrics FROM Song_Playlist sp JOIN Songs s ON sp.songID = s.songID WHERE sp.playlistID = ?";
+        PreparedStatement userPlaylistStatement = null;
+        PreparedStatement playlistSongsStatement = null;
+        ResultSet userPlaylistResultSet = null;
+        ResultSet playlistSongsResultSet = null;
+
+        List<Playlist> playlists = new ArrayList<>();
+
+        try {
+            // Retrieve user playlists
+            userPlaylistStatement = connection.prepareStatement(userPlaylistQuery);
+            userPlaylistStatement.setInt(1, userID);
+            userPlaylistResultSet = userPlaylistStatement.executeQuery();
+
+            while (userPlaylistResultSet.next()) {
+                Playlist newPlaylist = new Playlist();
+                newPlaylist.setPlaylistID(userPlaylistResultSet.getInt("playlistID"));
+                newPlaylist.setName(userPlaylistResultSet.getString("name"));
+
+                // Retrieve songs for the playlist
+                playlistSongsStatement = connection.prepareStatement(playlistSongsQuery);
+                playlistSongsStatement.setInt(1, newPlaylist.getPlaylistID());
+                playlistSongsResultSet = playlistSongsStatement.executeQuery();
+
+                while (playlistSongsResultSet.next()) {
+                    int songID = playlistSongsResultSet.getInt("songID");
+                    newPlaylist.addSong(getSongByID(songID));
+                }
+                playlists.add(newPlaylist);
+
+            }
+
+            return playlists;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (userPlaylistResultSet != null) {
+                    userPlaylistResultSet.close();
+                }
+                if (playlistSongsResultSet != null) {
+                    playlistSongsResultSet.close();
+                }
+                if (userPlaylistStatement != null) {
+                    userPlaylistStatement.close();
+                }
+                if (playlistSongsStatement != null) {
+                    playlistSongsStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null; // Return null in case of any errors
     }
 
     // public static void main(String[] args) {

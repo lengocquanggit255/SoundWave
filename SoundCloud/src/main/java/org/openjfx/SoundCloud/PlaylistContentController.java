@@ -204,6 +204,8 @@ public class PlaylistContentController implements Initializable {
 
             // Add the song HBox to the song VBox
             songVBox.getChildren().add(songHBox);
+            VBox.setMargin(songHBox, new Insets(10, 0, 0, 0));
+
         }
 
         // Set the song VBox as the content of the song scroll pane
