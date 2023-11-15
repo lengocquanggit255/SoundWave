@@ -598,6 +598,66 @@ public class Helper {
         return matchingSongs;
     }
 
+    public static void createUser(String userName, String password, String email) {
+        String query = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, userName);
+            statement.setString(2, password);
+            statement.setString(3, email);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static boolean isValidEmail(String email) {
+        String query = "SELECT COUNT(*) FROM Users WHERE email = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean isValid = true;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                if (count > 0) {
+                    isValid = false;
+                    System.out.println("Email already exists in the database.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return isValid;
+    }
+
     // public static void main(String[] args) {
 
     // // Test reading user playlists and songs

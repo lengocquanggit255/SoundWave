@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.SignInController">
    <children>
@@ -21,8 +21,17 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="passWordTextField" layoutX="217.0" layoutY="252.0" prefHeight="38.0" prefWidth="285.0" promptText="Password" style="-fx-background-color: #D3D3D3;" />
-      <TextField fx:id="emailTextField" layoutX="217.0" layoutY="199.0" prefHeight="38.0" prefWidth="285.0" promptText="Email" style="-fx-background-color: #D3D3D3;" />
+<TextField fx:id="passWordTextField" layoutX="217.0" layoutY="252.0" prefHeight="38.0" prefWidth="285.0" promptText="Password" style="-fx-background-color: #121212; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-text-fill: WHITE;">
+    <font>
+        <Font name="System Bold" size="12.0" />
+    </font>
+</TextField>
+
+<TextField fx:id="emailTextField" layoutX="217.0" layoutY="199.0" prefHeight="38.0" prefWidth="285.0" promptText="Email" style="-fx-background-color: #121212; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-text-fill: WHITE;">
+    <font>
+        <Font name="System Bold" size="12.0" />
+    </font>
+</TextField>
       <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="339.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@app_icon.png" />
@@ -38,5 +47,15 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
+      <Label layoutX="228.0" layoutY="448.0" prefHeight="17.0" prefWidth="137.0" text="Don't have an account?" textFill="#a29a9d">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Text fx:id="signUpText" fill="WHITE" layoutX="362.0" layoutY="461.0" onMouseClicked="#mouseClickSignUpText" onMouseEntered="#mouseEnterSignUpText" onMouseExited="#mouseExitSignUpText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for SoundWave" underline="true" wrappingWidth="137.33333333333326">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

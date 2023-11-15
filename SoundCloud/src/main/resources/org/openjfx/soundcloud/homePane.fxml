@@ -111,7 +111,19 @@
             </Label>
          </children>
       </HBox>
-      <VBox fx:id="playlistVBox0" alignment="TOP_CENTER" layoutX="60.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0">
+      <VBox fx:id="playlistVBox0" alignment="TOP_CENTER" layoutX="41.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282828; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <ImageView fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@AmericanTeen.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox fx:id="playlistVBox1" alignment="TOP_CENTER" layoutX="275.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282828; -fx-background-radius: 20px;">
          <children>
             <ImageView fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
@@ -120,7 +132,7 @@
             </ImageView>
          </children>
       </VBox>
-      <VBox fx:id="playlistVBox1" alignment="TOP_CENTER" layoutX="299.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0">
+      <VBox fx:id="playlistVBox2" alignment="TOP_CENTER" layoutX="514.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282828; -fx-background-radius: 20px;">
          <children>
             <ImageView fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
@@ -129,16 +141,7 @@
             </ImageView>
          </children>
       </VBox>
-      <VBox fx:id="playlistVBox2" alignment="TOP_CENTER" layoutX="538.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
-      <VBox fx:id="playlistVBox3" alignment="TOP_CENTER" layoutX="777.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0">
+      <VBox fx:id="playlistVBox3" alignment="TOP_CENTER" layoutX="753.0" layoutY="309.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282828; -fx-background-radius: 20px;">
          <children>
             <ImageView fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>

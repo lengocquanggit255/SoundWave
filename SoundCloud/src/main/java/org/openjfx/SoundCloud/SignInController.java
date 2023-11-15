@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -30,6 +32,9 @@ public class SignInController implements Initializable {
 
     @FXML
     private Label signInError;
+
+    @FXML
+    private Text signUpText;
 
     @FXML
     private void handleSignInButtonAction(ActionEvent event) {
@@ -61,6 +66,31 @@ public class SignInController implements Initializable {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+
+    public void mouseEnterSignUpText(MouseEvent event) {
+        signUpText.setStyle("-fx-fill: #1ed760");
+    }
+
+    public void mouseExitSignUpText(MouseEvent event) {
+        signUpText.setStyle("-fx-fill: #ffffff");
+    }
+
+    public void mouseClickSignUpText(MouseEvent event) {
+        Stage stage = (Stage) signUpText.getScene().getWindow();
+        try {
+            Parent signUpRoot = FXMLLoader.load(getClass().getResource("signUpPane.fxml"));
+            Scene signUpScene = new Scene(signUpRoot);
+
+            // Set the new scene
+            stage.setScene(signUpScene);
+
+            // Center the stage on the screen
+            centerStageOnScreen(stage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

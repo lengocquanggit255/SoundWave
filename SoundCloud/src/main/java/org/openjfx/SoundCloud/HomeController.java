@@ -61,6 +61,7 @@ public class HomeController implements Initializable {
         playlistHBox3.setOnMouseClicked(event -> handlePlaylistClick(3));
         playlistHBox4.setOnMouseClicked(event -> handlePlaylistClick(4));
         playlistHBox5.setOnMouseClicked(event -> handlePlaylistClick(5));
+        playlistVBox0.setOnMouseClicked(event -> handlePlaylistClick(6));
     }
 
     // Event handler for handling HBox click events
@@ -84,6 +85,9 @@ public class HomeController implements Initializable {
                 break;
             case 5:
                 homePlaylistContentController.setPlaylistImageView("MadeInLagos.png");
+                break;
+            case 6:
+                homePlaylistContentController.setPlaylistImageView("AmericanTeen.png");
                 break;
             default:
                 homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo.png");
