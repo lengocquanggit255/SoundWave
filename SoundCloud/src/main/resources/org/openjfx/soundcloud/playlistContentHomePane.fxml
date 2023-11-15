@@ -64,9 +64,9 @@
             </VBox>
          </content>
       </ScrollPane>
-      <AnchorPane prefHeight="236.0" prefWidth="987.0" style="-fx-background-color: #282828 #282828; -fx-border-color: #282828; -fx-border-radius: 20px 20px 0 0; -fx-background-radius: 20px 20px 0 0;">
+      <AnchorPane prefHeight="236.0" prefWidth="987.0" style="-fx-background-color: #121212; -fx-border-color: #121212; -fx-border-radius: 20px 20px 0 0; -fx-background-radius: 20px 20px 0 0;">
          <children>
-            <Label fx:id="playlistNameLabel" layoutX="198.0" layoutY="51.0" prefHeight="89.0" prefWidth="583.0" text="Liked Songs" textFill="WHITE">
+            <Label fx:id="playlistNameLabel" layoutX="198.0" layoutY="51.0" prefHeight="89.0" prefWidth="774.0" text="Ai cung bat dau tu dau do" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font name="System Bold" size="57.0" />
                </font>
@@ -76,7 +76,7 @@
                   <Font name="System Bold" size="9.0" />
                </font>
             </Label>
-            <Label fx:id="userNameLabel" layoutX="198.0" layoutY="143.0" prefHeight="29.0" prefWidth="231.0" text="Le Ngoc Quang" textFill="WHITE">
+            <Label fx:id="artistLabel" layoutX="198.0" layoutY="143.0" prefHeight="29.0" prefWidth="231.0" text="Le Ngoc Quang" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="9.0" />
                </font>
@@ -86,7 +86,7 @@
                   <Image url="@playList_default_img.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="setPlaylistButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutX="15.0" layoutY="182.0" mnemonicParsing="false" onAction="#loadCurrentPlaylistToMP3" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 100px; -fx-background-color: #1ed760;">
+            <Button fx:id="setPlaylistButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutX="61.0" layoutY="61.0" mnemonicParsing="false" onAction="#loadCurrentPlaylistToMP3" opacity="0.51" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100px; -fx-background-color: #1ed760;">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

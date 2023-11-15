@@ -41,7 +41,7 @@ public class HomePlaylistContentController implements Initializable {
     private VBox songVBox;
 
     @FXML
-    private Label userNameLabel;
+    private Label artistLabel;
 
     @FXML
     private Button setPlaylistButton;
@@ -51,6 +51,8 @@ public class HomePlaylistContentController implements Initializable {
 
     private MP3Controller mp3Controller;
     private Playlist currentPlaylist;
+
+    String imagePath = "";
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -66,6 +68,8 @@ public class HomePlaylistContentController implements Initializable {
         playlistImageView.setImage(new Image(
                 "D:\\QuangWork\\Github\\MusicApp\\SoundCloud\\src\\main\\resources\\org\\openjfx\\soundcloud\\"
                         + name));
+        imagePath = "D:\\QuangWork\\Github\\MusicApp\\SoundCloud\\src\\main\\resources\\org\\openjfx\\soundcloud\\"
+                + name;
     }
 
     @FXML
@@ -80,7 +84,7 @@ public class HomePlaylistContentController implements Initializable {
         playlistNameLabel.setText(playlist.getName());
 
         // Set the username
-        userNameLabel.setText(Helper.currentUser.getUsername());
+        artistLabel.setText(playlist.getSongs().get(0).getArtists().get(0).getName());
 
         // Clear existing song items
         songVBox.getChildren().clear();
@@ -99,6 +103,7 @@ public class HomePlaylistContentController implements Initializable {
                     // Call the playSong method of the mp3Controller
                     mp3Controller.setPlaylist(playlist);
                     mp3Controller.playSong(song);
+                    mp3Controller.setSongImageView(imagePath);
                 }
             });
 
@@ -112,8 +117,7 @@ public class HomePlaylistContentController implements Initializable {
             orderLabel.setTextFill(Color.WHITE);
 
             // Create an ImageView for the song
-            ImageView imageView = new ImageView(new Image(
-                    "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
+            ImageView imageView = new ImageView(new Image(imagePath));
             imageView.setFitWidth(55); // Set the desired width of the ImageView
             imageView.setFitHeight(55); // Set the desired height of the ImageView
             // Set the margin for the ImageView
@@ -129,7 +133,7 @@ public class HomePlaylistContentController implements Initializable {
             nameLabel.setFont(font);
             nameLabel.setTextFill(Color.WHITE);
 
-            Label artistLabel = new Label(song.getArtists().get(0).getNames());
+            Label artistLabel = new Label(song.getArtists().get(0).getName());
             artistLabel.setAlignment(Pos.CENTER_LEFT);
             artistLabel.setPrefSize(79, 17);
             font = Font.font("System", 12);

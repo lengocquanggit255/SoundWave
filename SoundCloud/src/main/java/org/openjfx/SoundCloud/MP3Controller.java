@@ -38,6 +38,8 @@ public class MP3Controller implements Initializable {
     @FXML
     private ImageView playButtonImageView;
     @FXML
+    private ImageView songImageView;
+    @FXML
     private Button lyricButton;
 
     private Media media;
@@ -110,6 +112,13 @@ public class MP3Controller implements Initializable {
         });
 
         songProgressBar.setStyle("-fx-accent: #00FF00;");
+
+        songImageView.setImage(new Image(
+                "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
+    }
+
+    public void setSongImageView(String path) {
+        songImageView.setImage(new Image(path));
     }
 
     public void playButtonClicked() {

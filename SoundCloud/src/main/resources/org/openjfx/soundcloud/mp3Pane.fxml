@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="92.0" prefWidth="930.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.MP3Controller">
+<AnchorPane prefHeight="91.0" prefWidth="1081.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.MP3Controller">
    <children>
-      <ProgressBar fx:id="songProgressBar" layoutX="290.0" layoutY="62.0" prefHeight="8.0" prefWidth="350.0" progress="0.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: BLACK; -fx-border-color: BLACK;" />
-      <Button fx:id="playButton" alignment="CENTER" layoutX="447.0" layoutY="11.0" mnemonicParsing="false" onAction="#playButtonClicked" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-background-color: WHITE;">
+      <ProgressBar fx:id="songProgressBar" layoutX="367.0" layoutY="71.0" prefHeight="8.0" prefWidth="350.0" progress="0.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: BLACK; -fx-border-color: BLACK;" />
+      <Button fx:id="playButton" alignment="CENTER" layoutX="521.0" layoutY="12.0" mnemonicParsing="false" onAction="#playButtonClicked" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: WHITE;">
          <font>
             <Font size="14.0" />
          </font>
@@ -24,7 +24,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="previousButton" layoutX="373.0" layoutY="16.0" mnemonicParsing="false" onAction="#previousMedia" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-background-color: WHITE;">
+      <Button fx:id="previousButton" alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="15.0" mnemonicParsing="false" onAction="#previousMedia" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: WHITE;">
          <font>
             <Font size="14.0" />
          </font>
@@ -36,8 +36,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <Slider fx:id="volumeSlider" layoutX="798.0" layoutY="61.0" max="100.0" prefHeight="8.0" prefWidth="127.0" style="-fx-background-color: BLACK; -fx-border-color: BLACK;" stylesheets="@styles.css" value="50.0" />
-      <Button fx:id="nextButton" layoutX="524.0" layoutY="16.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-background-color: WHITE;">
+      <Slider fx:id="volumeSlider" layoutX="940.0" layoutY="40.0" max="100.0" prefHeight="8.0" prefWidth="127.0" style="-fx-background-color: BLACK; -fx-border-color: BLACK;" stylesheets="@styles.css" value="50.0" />
+      <Button fx:id="nextButton" layoutX="581.0" layoutY="15.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-background-color: WHITE;">
          <font>
             <Font size="14.0" />
          </font>
@@ -49,8 +49,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="8.0" layoutY="12.0" prefHeight="71.0" prefWidth="73.0" style="-fx-background-color: WHITE;" />
-      <Label fx:id="songLabel" layoutX="95.0" layoutY="22.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="WHITE" />
-      <Button fx:id="lyricButton" layoutX="696.0" layoutY="27.0" mnemonicParsing="false" onAction="#showSongLyric" text="Button" />
+      <Label fx:id="songLabel" layoutX="95.0" layoutY="22.0" prefHeight="17.0" prefWidth="151.0" text="Label" textFill="WHITE" />
+      <Button fx:id="lyricButton" layoutX="853.0" layoutY="33.0" mnemonicParsing="false" onAction="#showSongLyric" style="-fx-background-color: #232323; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #ffffff;" text="Show lyric" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="songLabel1" layoutX="95.0" layoutY="53.0" prefHeight="17.0" prefWidth="151.0" text="Label" textFill="WHITE" />
+      <ImageView fx:id="songImageView" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

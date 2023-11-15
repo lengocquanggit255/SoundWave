@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Artist {
     private int artistID;
-    private String names;
+    private String name;
     private String description;
     private String managementCompany;
     private Date birthDate;
@@ -13,7 +13,7 @@ public class Artist {
 
     public Artist(int artistID, String names, String description, String managementCompany, Date birthDate) {
         this.artistID = artistID;
-        this.names = names;
+        this.name = names;
         this.description = description;
         this.managementCompany = managementCompany;
         this.birthDate = birthDate;
@@ -27,12 +27,12 @@ public class Artist {
         this.artistID = artistID;
     }
 
-    public String getNames() {
-        return names;
+    public String getName() {
+        return name;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setName(String names) {
+        this.name = names;
     }
 
     public String getDescription() {

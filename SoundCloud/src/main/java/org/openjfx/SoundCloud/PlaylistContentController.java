@@ -106,6 +106,8 @@ public class PlaylistContentController implements Initializable {
                     // Call the playSong method of the mp3Controller
                     mp3Controller.setPlaylist(playlist);
                     mp3Controller.playSong(song);
+                    mp3Controller.setSongImageView(
+                            "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg");
                 }
             });
 
@@ -136,7 +138,7 @@ public class PlaylistContentController implements Initializable {
             nameLabel.setFont(font);
             nameLabel.setTextFill(Color.WHITE);
 
-            Label artistLabel = new Label(song.getArtists().get(0).getNames());
+            Label artistLabel = new Label(song.getArtists().get(0).getName());
             artistLabel.setAlignment(Pos.CENTER_LEFT);
             artistLabel.setPrefSize(79, 17);
             font = Font.font("System", 12);

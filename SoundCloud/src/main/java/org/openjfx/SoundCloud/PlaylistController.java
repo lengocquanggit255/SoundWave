@@ -86,13 +86,13 @@ public class PlaylistController implements Initializable {
         playlistVBox.getChildren().clear(); // Clear existing content
 
         // Re-populate the playlistVBox with updated data
-          for (Playlist playlist : playlists) {
+        for (Playlist playlist : playlists) {
             ImageView playlistImageView = new ImageView(new Image(
                     "D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/playList_default_img.jpg"));
             playlistImageView.setFitWidth(50);
             playlistImageView.setFitHeight(50);
             Button playlistButton = new Button();
-            playlistButton.setPrefSize(70, 70);
+            playlistButton.setPrefSize(65, 65);
             playlistButton.setGraphic(playlistImageView);
             playlistButton.setStyle("-fx-background-color: #121212;");
 

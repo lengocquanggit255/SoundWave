@@ -72,6 +72,7 @@ public class HomeController implements Initializable {
                 break;
             case 1:
                 homePlaylistContentController.setPlaylistImageView("EverydayIsChristmas.png");
+                break;
             case 2:
                 homePlaylistContentController.setPlaylistImageView("LOV6.png");
                 break;
@@ -80,6 +81,9 @@ public class HomeController implements Initializable {
                 break;
             case 4:
                 homePlaylistContentController.setPlaylistImageView("HerLoss.jpg");
+                break;
+            case 5:
+                homePlaylistContentController.setPlaylistImageView("MadeInLagos.png");
                 break;
             default:
                 homePlaylistContentController.setPlaylistImageView("AiCungPhaiBatDauTuDauDo.png");

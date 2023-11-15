@@ -4,12 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.TextFlow?>
 
-
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.LyricController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="987.0" style="-fx-background-color: #121212; -fx-border-color: #121212; -fx-background-radius: 20px; -fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.LyricController">
    <children>
-      <ScrollPane fx:id="lyricScrollPane" hbarPolicy="NEVER" prefHeight="517.0" prefWidth="987.0" styleClass="scrollPane" stylesheets="@hide-scrollbar.css">
+      <ScrollPane fx:id="lyricScrollPane" hbarPolicy="NEVER" layoutX="5.0" layoutY="4.0" prefHeight="505.0" prefWidth="966.0" style="-fx-background-color: #121212; -fx-border-color: #121212; -fx-background-radius: 20px; -fx-border-radius: 20px;" styleClass="scrollPane" stylesheets="@hide-scrollbar.css">
          <content>
-            <TextFlow fx:id="lyricTextFlow" prefHeight="517.0" prefWidth="987.0" />
+            <TextFlow fx:id="lyricTextFlow" prefHeight="510.0" prefWidth="987.0" style="-fx-background-color: #121212; -fx-border-color: #121212;" />
          </content>
       </ScrollPane>
    </children>

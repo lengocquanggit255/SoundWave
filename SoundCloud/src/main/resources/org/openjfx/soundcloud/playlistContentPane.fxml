@@ -15,7 +15,7 @@
    <children>
       <ScrollPane fx:id="songScrollPane" layoutX="1.0" layoutY="259.0" prefHeight="255.0" prefWidth="987.0" style="-fx-background-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #121212; -fx-border-color: #121212;" styleClass="scrollPane" stylesheets="@hide-scrollbar.css">
          <content>
-            <VBox fx:id="songVBox" prefHeight="265.0" prefWidth="987.0" style="-fx-background-color: #121212; -fx-border-color: #121212;">
+            <VBox fx:id="songVBox" prefHeight="251.0" prefWidth="987.0" style="-fx-background-color: #121212; -fx-border-color: #121212;">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="823.0">
                      <children>
