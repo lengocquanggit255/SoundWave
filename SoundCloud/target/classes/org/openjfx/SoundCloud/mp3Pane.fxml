@@ -54,7 +54,6 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Label fx:id="songLabel1" layoutX="95.0" layoutY="53.0" prefHeight="17.0" prefWidth="151.0" text="Label" textFill="WHITE" />
       <ImageView fx:id="songImageView" fitHeight="75.0" fitWidth="75.0" layoutX="9.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

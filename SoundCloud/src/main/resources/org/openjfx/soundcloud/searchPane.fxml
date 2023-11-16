@@ -15,23 +15,26 @@
             <VBox fx:id="searchVBox" prefHeight="443.0" prefWidth="976.0" style="-fx-background-color: #121212;" />
          </content>
       </ScrollPane>
-      <Button fx:id="searchButton" layoutX="405.0" layoutY="13.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="33.0" prefWidth="52.0" text="Button" />
-      <Button fx:id="searchBySongButton" layoutX="101.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Song" textFill="WHITE">
+      <Button fx:id="searchButton" layoutX="405.0" layoutY="13.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="33.0" prefWidth="52.0" style="-fx-background-radius: 20px; -fx-background-color: #121212;" text="Search" textFill="#b5b5b5">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="searchBySongButton" layoutX="124.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Song" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="searchByArtistButton" layoutX="173.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByArtist" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Artist" textFill="WHITE">
+      <Button fx:id="searchByArtistButton" layoutX="196.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByArtist" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Artist" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="searchByGenreButton" layoutX="247.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByGenre" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Genre" textFill="WHITE">
+      <Button fx:id="searchByGenreButton" layoutX="270.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByGenre" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Genre" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="searchByReleasedDateButton" layoutX="320.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByReleasedDate" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Released Date" textFill="WHITE">
+      <Button fx:id="searchByReleasedDateButton" layoutX="343.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByReleasedDate" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Released Date" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

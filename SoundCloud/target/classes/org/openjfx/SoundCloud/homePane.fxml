@@ -141,6 +141,9 @@
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
+               <image>
+                  <Image url="@LoveSick.jpg" />
+               </image>
             </ImageView>
          </children>
       </VBox>
@@ -150,6 +153,9 @@
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
+               <image>
+                  <Image url="@222.png" />
+               </image>
             </ImageView>
          </children>
       </VBox>
