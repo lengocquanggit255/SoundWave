@@ -32,6 +32,17 @@ public class SearchController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
+    @FXML
+    private Button searchByArtistButton;
+
+    @FXML
+    private Button searchByGenreButton;
+
+    @FXML
+    private Button searchByReleasedDateButton;
+
+    @FXML
+    private Button searchBySongButton;
 
     @FXML
     private Button searchButton;
@@ -55,11 +66,32 @@ public class SearchController implements Initializable {
     }
 
     @FXML
-    public void search() {
+    public void searchBySong() {
         String input = searchTextField.getText();
         currentPlaylist = Helper.searchSongsByName(input);
         loadPlaylist();
+    }
 
+    @FXML
+    public void searchByArtist() {
+        String input = searchTextField.getText();
+        currentPlaylist = Helper.searchSongsByArtist(input);
+        loadPlaylist();
+
+    }
+
+    @FXML
+    public void searchByGenre() {
+        String input = searchTextField.getText();
+        currentPlaylist = Helper.searchSongsByGenre(input);
+        loadPlaylist();
+    }
+
+    @FXML
+    public void searchByReleasedDate() {
+        String input = searchTextField.getText();
+        currentPlaylist = Helper.searchSongsByReleasedDate(input);
+        loadPlaylist();
     }
 
     public void setMP3Controller(MP3Controller mp3Controller) {

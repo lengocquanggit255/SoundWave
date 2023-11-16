@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,32 +9,32 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="987.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.SoundCloud.SearchController">
    <children>
-      <TextField fx:id="searchTextField" layoutX="104.0" layoutY="6.0" prefHeight="48.0" prefWidth="367.0" promptText="What do you want to listen to?" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #2a2a2a;" />
-      <ScrollPane fx:id="searchScrollPane" layoutX="-1.0" layoutY="73.0" prefHeight="443.0" prefWidth="987.0" style="-fx-background-color: #121212;" styleClass="scrollPane" stylesheets="@hide-scrollbar.css">
+      <TextField fx:id="searchTextField" layoutX="104.0" layoutY="6.0" prefHeight="48.0" prefWidth="367.0" promptText="What do you want to listen to?" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #2a2a2a; -fx-text-fill: WHITE;" />
+      <ScrollPane fx:id="searchScrollPane" layoutX="-1.0" layoutY="105.0" prefHeight="411.0" prefWidth="987.0" style="-fx-background-color: #121212;" styleClass="scrollPane" stylesheets="@hide-scrollbar.css">
          <content>
             <VBox fx:id="searchVBox" prefHeight="443.0" prefWidth="976.0" style="-fx-background-color: #121212;" />
          </content>
       </ScrollPane>
-      <Button fx:id="searchButton" layoutX="405.0" layoutY="13.0" mnemonicParsing="false" onAction="#search" prefHeight="33.0" prefWidth="52.0" text="Button" />
-      <Label alignment="CENTER" layoutX="8.0" layoutY="54.0" prefHeight="17.0" prefWidth="14.0" text="#" textFill="#afafaf">
+      <Button fx:id="searchButton" layoutX="405.0" layoutY="13.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="33.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="searchBySongButton" layoutX="101.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchBySong" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Song" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="54.0" prefHeight="17.0" prefWidth="47.0" text="Title" textFill="#afafaf">
+      </Button>
+      <Button fx:id="searchByArtistButton" layoutX="173.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByArtist" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Artist" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="54.0" prefHeight="17.0" prefWidth="83.0" text="Date released" textFill="#afafaf">
+      </Button>
+      <Button fx:id="searchByGenreButton" layoutX="247.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByGenre" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Genre" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="809.0" layoutY="54.0" prefHeight="17.0" prefWidth="65.0" text="Length" textFill="#afafaf">
+      </Button>
+      <Button fx:id="searchByReleasedDateButton" layoutX="320.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchByReleasedDate" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #262626; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Released Date" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
+      </Button>
    </children>
 </AnchorPane>

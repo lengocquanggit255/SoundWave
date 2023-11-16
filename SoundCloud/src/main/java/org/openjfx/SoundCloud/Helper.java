@@ -1,6 +1,8 @@
 package org.openjfx.SoundCloud;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -596,6 +598,120 @@ public class Helper {
         }
 
         return matchingSongs;
+    }
+
+    public static Playlist searchSongsByGenre(String genre) {
+        Playlist songsByGenre = new Playlist(); // Special playlist that contains songs matching the genre
+
+        try {
+            // Execute SQL query to fetch songs by genre from the database
+            String query = "SELECT songs.* FROM songs INNER JOIN songs_genres ON songs.songID = songs_genres.songID INNER JOIN genres ON songs_genres.genreID = genres.genreID WHERE genres.genre_name = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, genre);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and create Song objects
+            while (resultSet.next()) {
+                int songID = resultSet.getInt("songID");
+                int length = resultSet.getInt("length_minutes");
+                String name = resultSet.getString("name");
+                List<String> genres = getGenresForSong(songID);
+                List<Artist> artists = getArtistsForSong(songID);
+                Date releaseDate = resultSet.getDate("released_date");
+                String lyrics = resultSet.getString("lyrics");
+
+                Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
+                // Set other song attributes
+
+                // Add the song to the list
+                songsByGenre.getSongs().add(song);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return songsByGenre;
+    }
+
+    public static Playlist searchSongsByArtist(String artistName) {
+        Playlist songsByArtist = new Playlist(); // Special playlist that contains songs by the artist
+
+        try {
+            // Execute SQL query to fetch songs by artist from the database
+            String query = "SELECT songs.* FROM songs INNER JOIN songs_artists ON songs.songID = songs_artists.songID INNER JOIN artists ON songs_artists.artistID = artists.artistID WHERE artists.artist_name = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, artistName);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and create Song objects
+            while (resultSet.next()) {
+                int songID = resultSet.getInt("songID");
+                int length = resultSet.getInt("length_minutes");
+                String name = resultSet.getString("name");
+                List<String> genres = getGenresForSong(songID);
+                List<Artist> artists = getArtistsForSong(songID);
+                Date releaseDate = resultSet.getDate("released_date");
+                String lyrics = resultSet.getString("lyrics");
+
+                Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
+                // Set other song attributes
+
+                // Add the song to the list
+                songsByArtist.getSongs().add(song);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return songsByArtist;
+    }
+
+    public static Playlist searchSongsByReleasedDate(String dateString) {
+        Playlist songsByReleasedDate = new Playlist(); // Special playlist that contains songs released on the specified
+                                                       // date
+
+        try {
+            // Convert the input string to java.sql.Date
+            java.sql.Date sqlDate = java.sql.Date.valueOf(dateString);
+            // Execute SQL query to fetch songs by released date from the database
+            String query = "SELECT * FROM Songs WHERE released_date = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setDate(1, sqlDate);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and create Song objects
+            while (resultSet.next()) {
+                int songID = resultSet.getInt("songID");
+                int length = resultSet.getInt("length_minutes");
+                String name = resultSet.getString("name");
+                List<String> genres = getGenresForSong(songID);
+                List<Artist> artists = getArtistsForSong(songID);
+                Date releaseDate = resultSet.getDate("released_date");
+                String lyrics = resultSet.getString("lyrics");
+
+                Song song = new Song(songID, name, length, genres, artists, releaseDate, lyrics);
+                // Set other song attributes
+
+                // Add the song to the list
+                songsByReleasedDate.getSongs().add(song);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return songsByReleasedDate;
     }
 
     public static void createUser(String userName, String password, String email) {

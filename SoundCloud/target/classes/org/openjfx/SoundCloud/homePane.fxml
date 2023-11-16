@@ -129,6 +129,9 @@
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
+               <image>
+                  <Image url="@FlowerBoy.png" />
+               </image>
             </ImageView>
          </children>
       </VBox>
