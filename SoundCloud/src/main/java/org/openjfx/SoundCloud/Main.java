@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -22,6 +23,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("signInPane.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Image logo = new Image("D:/QuangWork/Github/MusicApp/SoundCloud/src/main/resources/org/openjfx/soundcloud/app_icon.png");
+        stage.getIcons().add(logo);
         stage.show();
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
