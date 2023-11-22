@@ -3,8 +3,8 @@ Dự án BTL môn CSDL được mình thiết kế và phát triển trong vòng
 ## Các công nghệ đã sử dụng
 - Maven
 - Java
-- Javafx
-- Xampp
+- Javafx, SceneBuilder
+- Xampp, mysql
 ## Database
 ![database](https://github.com/lengocquanggit255/MusicApp/assets/126934622/899d2a67-b088-4f75-b2a7-a831d0d08988)
 ## Các chức năng của app
