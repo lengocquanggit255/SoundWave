@@ -49,7 +49,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistContentHomePane.fxml"));
-            AnchorPane homePlaylistContentPane = fxmlLoader.load();
+            fxmlLoader.load();
             homePlaylistContentController = fxmlLoader.getController();
 
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlistContentPane.fxml"));
-            AnchorPane playlistContentPane = fxmlLoader.load();
+            fxmlLoader.load();
             playlistContentController = fxmlLoader.getController();
 
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlaylistPane.fxml"));
-            AnchorPane addPlaylistPane = fxmlLoader.load();
+            fxmlLoader.load();
             addPlaylistController = fxmlLoader.getController();
 
         } catch (IOException e) {
@@ -85,7 +85,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("homePane.fxml"));
-            AnchorPane homePane = fxmlLoader.load();
+            fxmlLoader.load();
             homeController = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchPane.fxml"));
-            AnchorPane searchPane = fxmlLoader.load();
+            fxmlLoader.load();
             searchController = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class ContainerController implements Initializable {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lyricPane.fxml"));
-            AnchorPane lyricPane = fxmlLoader.load();
+            fxmlLoader.load();
             lyricController = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -142,6 +142,7 @@ public class ContainerController implements Initializable {
 
     public void searchButtonClick() {
         setContentPane(searchController.getMainPane());
+        searchController.reload();
     }
 
 }

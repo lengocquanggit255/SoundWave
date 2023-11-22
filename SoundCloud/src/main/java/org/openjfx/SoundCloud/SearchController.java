@@ -66,6 +66,12 @@ public class SearchController implements Initializable {
     }
 
     @FXML
+    public void reload() {
+        searchVBox.getChildren().clear();
+        searchTextField.setText("");
+    }
+
+    @FXML
     public void searchBySong() {
         String input = searchTextField.getText();
         currentPlaylist = Helper.searchSongsByName(input);
