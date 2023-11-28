@@ -17,4 +17,4 @@ Dự án BTL môn CSDL được mình thiết kế và phát triển trong vòng
 - Link hướng dẫn cài đặt java: https://youtu.be/fbyobdxDQno?si=ZfI72czfT6veg1jv
 - Link hướng dẫn cài đặt maven: https://youtu.be/km3tLti4TCM?si=CLAuS1FQnSML8KzZ
 ## Cách sử dụng
-- Link video demo ứng dụng: 
+- Link video demo ứng dụng: https://youtu.be/26PwZbdVXyg
