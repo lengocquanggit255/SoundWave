@@ -1,4 +1,4 @@
-# MusicApp
+# SoundWave
 Dự án BTL môn CSDL được mình thiết kế và phát triển trong vòng 5 tuần, với đề tài là phần mềm nghe nhạc và quản lý thư viện nhạc. App của mình hiện tại đã có đủ một số chức năng cơ bản nhất của một ứng dụng nghe nhạc.
 ## Các công nghệ đã sử dụng
 - Maven
